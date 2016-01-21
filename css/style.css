@@ -58,19 +58,22 @@ body, input, select, textarea, button, .ui-btn {
 
 /*css for the main post stream*/
 #post_stream {
-    width: 50%;
+    width: 100%;
     font: bold;
 }
 .post_wrap {
-	margin:25px 0 5px 0;
-	clear:both;
-	overflow:auto;
+  clear: both;
+  cursor: pointer;
+  height: auto;
+  margin: 25px 0 5px;
+  overflow: auto;
+  position: relative;
 }
 
 /*css for post author profile picture displayed near every post*/
 .post_wrap_author_profile_picture {
-	float:left;
-	width:10%;
+  float: left;
+  width: 20%;
 }
 
 /*css for post content
@@ -79,9 +82,8 @@ body, input, select, textarea, button, .ui-btn {
 }*/
 
 .post_details {
-  left: 29%;
-  position: absolute;
-  width: 80%;
+  float: right;
+  width: 75%;
 }
 
 /*css for displaying post author name*/
@@ -94,8 +96,9 @@ body, input, select, textarea, button, .ui-btn {
 /*css for displaying post text*/
 .post_text {
 	margin:7px 0;
-	font-size:15px;
-	line-height:1.5em
+	font-size:12px;
+	line-height:1.5em;
+	width: 80%;
 }
 
 /*css for Like, Unlike and Comment details */
@@ -137,15 +140,15 @@ body, input, select, textarea, button, .ui-btn {
 /*css for post timestamp */
 .post_timestamp {
 	color:#999;
-	font-size:12px;
-	padding-right:20px;
+	font-size:11px;
+	padding: 1px;
     float: right;
 }
 
 /*css for comments */ 
 .comments_wrap
 {
-	width:200%
+	width:100%;
 }
 .comment {
 	background-color:#fafafa;
@@ -158,10 +161,10 @@ body, input, select, textarea, button, .ui-btn {
 	float:left;
 }
 .comment_author {
-	margin:0px 0px 0px 2px;
-	color:#5b74a8;
-    padding-left:40px;
-    font-size: 14px;
+  color: #5b74a8;
+  font-size: 12px;
+  margin: -3px 0 0;
+  padding-left: 38px;
 }
 .comment_author_profile_picture img {
 	width:25px;

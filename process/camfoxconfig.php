@@ -5,5 +5,5 @@ $db_port="";
 $db_username="camfox";
 $db_password="camfox";
 $hr_email=array("denzil@tentsoftware.com","ravi@tentsoftware.com");
-$siteurl="http://localhost/camfox";
+$siteurl="http://localhost/camfoxgit";
 ?>

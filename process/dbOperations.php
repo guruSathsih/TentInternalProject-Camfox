@@ -486,7 +486,7 @@ function increaseNewEventsCount($users)
 function show_events_foruser($friends)
 {
 	$conn=getDBConnection(); 
-	$sql="SELECT p.date_time as posted_on ,u.id as user ,u.*,p.* from users u, posts p where u.id = p.user_id and p.user_id in ($friends) order by p.date_time DESC ";
+	$sql="SELECT p.date_time as posted_on ,p.id as post , u.id as user ,u.*,p.* from users u, posts p where u.id = p.user_id and p.user_id in ($friends) order by p.date_time DESC ";
 	$result = mysql_query($sql, $conn) or die(mysql_error());
 	$user = null; $i =0;
 	while($row = mysql_fetch_array($result))
@@ -496,6 +496,7 @@ function show_events_foruser($friends)
 		$user[$i][2]=$row['posted_on'];
 		$user[$i][3]=$row['picture'];
 		$user[$i][4]=$row['gender'];
+		$user[$i][5]=$row['post'];
 		$i++;
 	}	
 		closeDBConnection($conn);

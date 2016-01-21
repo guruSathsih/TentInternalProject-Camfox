@@ -250,21 +250,21 @@
 			$result = "";
 			if($post_id != 0)
 			{
-				$result.= '<div class="post_wrap" id="'.$post_id.'">';
+				$result.= '<div  class="post_wrap"><a id="'.$post_id.'" onClick="show_post_detail(this)">';
 					$result.= '<div class="post_wrap_author_profile_picture">';
 						if($user_details[1] != null)
-							{$result.= '<img src="'.$user_details[1].'" style="width: 237%; height: 60px;" />';}
+							{$result.= '<img src="'.$user_details[1].'" style="width: 100%;max-height: 30px; " />';}
 						else{
 							$result.= '<img src="images/profile_pic.jpg" />';}
 					$result.= '</div>';
 					$result.= '<div class="post_details"> ';
 						$result.= '<div class="post_author"> '.$user_details[0].' </div>';
 						if(strlen($post_content) > 15)
-							$result.= '<div class="post_text"> '.substr($post_content,0,10).'...<input id="readmore" type="button" style="background-color: #197700 !important; font-size: 12px; border-radius: 0.00125em; color: #ddd !important; border-style: solid; margin: -23px 9px -6px 125px;" value="Read More" name="readmore" onclick=" "> </div>';
+							$result.= '<div class="post_text"> '.substr($post_content,0,10).'...<a id="'.$post_id.'" style="font-size: 11px; color: #197700 !important;  margin: -17px 6px -2px 17px;" name="'.$post_id.'_readmore" onclick="show_post_detail(this) ">Read More </a></div>';
 						else
 							$result.= '<div class="post_text"> '.$post_content.' </div>';
 					$result.= '</div>';
-				$result.= '</div> ';
+				$result.= '</a></div> ';
 				$result.= ' <div class="comments_wrap">';
 					$result.= '<span> <span><img src="images/like.png" /></span>';
 					$result.= '<span class="post_feedback_like_unlike" id=""  onclick=""> Like</span>';		
@@ -309,21 +309,27 @@
 			if($post_content != null)
 			{
 				foreach($post_content as $post){
-					$result.= '<div class="post_wrap" id="'.$post[0].'">';
+					$result.= '<div  class="post_wrap"><a id="'.$post[0].'" onClick="show_post_detail(this)">';
 						$result.= '<div class="post_wrap_author_profile_picture">';
 							if($post[6] != null)
-								{$result.= '<img src="'.$post[6].'" style="width: 455%; height: 60px;" />';}
+								{$result.= '<img src="'.$post[6].'" style="width: 100%;max-height: 30px;" />';}
 							else{
 								$result.= '<img src="images/profile_pic.jpg" />';}
 						$result.= '</div>';
+						
+						$tz = $_POST['timezone'];						
+						$tz = new DateTimeZone($tz);
+						$date = new DateTime($post[3]);
+						$date->setTimezone($tz);
+						
 						$result.= '<div class="post_details"> ';
-							$result.= '<div class="post_author"> '.$post[1].' </div>';
+							$result.= '<div class="post_author"> '.$post[1].'<span class="post_timestamp" id="comment_date"> '.$this->date_format($date->format('Y-m-d H:i:s'),$tz).' ago</span>  </div>';
 							if(strlen($post[2]) > 15)
-								$result.= '<div class="post_text"> '.substr($post[2],0,10).'...<input id="'.$post[0].'" type="button" style="background-color: #197700 !important; font-size: 12px; border-radius: 0.00125em; color: #ddd !important; border-style: solid; margin: -23px 9px -6px 125px;" value="Read More" name="'.$post[0].'_readmore" onclick="show_post_detail(this) "></div>';
+								$result.= '<div class="post_text"> '.substr($post[2],0,10).'...<a id="'.$post[0].'" style="font-size: 11px; color: #197700 !important;  margin: -17px 6px -2px 5px;" name="'.$post[0].'_readmore" onclick="show_post_detail(this) ">Read More </a></div>';
 							else
 								$result.= '<div class="post_text"> '.$post[2].' </div>';
 						$result.= '</div>';
-					$result.= '</div> ';
+					$result.= '</a></div> ';
 					
 					$result.= ' <div class="comments_wrap">';
 						$result.= '<span> <span><img src="images/like.png" /></span>';						
@@ -332,13 +338,6 @@
 						
 						$result.= '<span><span class="post_feedback_comment" onclick="show_comments('.$post[0].','.$user_id.')"> <img src="images/comment.png" /> Comment</span>';
 						$result.= '<span class="post_feedback_count" id="'.$post[0].'_comment_count"> '.$post[4].'</span></span>';
-												
-						$tz = $_POST['timezone'];						
-						$tz = new DateTimeZone($tz);
-						$date = new DateTime($post[3]);
-						$date->setTimezone($tz);
-						
-						$result.= '<span class="post_timestamp" id="comment_date"> '.$this->date_format($date->format('Y-m-d H:i:s'),$tz).' ago</span> ';
 						
 						$result.=	'<div class="comment" id="'.$post[0].'_comment" >';
 						$result.=	'</div>';
@@ -394,28 +393,18 @@
 							$result.=	'<img src="images/profile_pic.jpg"/>';
 						$result.=	'</div>';
 						$result.=	'<div class="comment_details">';
-								
-							$result.=	'<div class="comment_author" >';
+							$tz = $_POST['timezone'];
+							$tz = new DateTimeZone($tz);
+							$date = new DateTime($comment[4]);
+							$date->setTimezone($tz);
+							
+							$result.=	'<div class="comment_author" > <span class="post_timestamp" id="comment_date"> '.$this->date_format($date->format('Y-m-d H:i:s'),$tz).' ago</span> ';
 								$result.=	$comment[2];
 							$result.=	'</div>';
 								
 							$result.=	'<div class="comment_text" >';
 								$result.=	$comment[1];
 							$result.=	'</div>';
-							
-							//$date = new DateTime($comment[4]);
-							//date_default_timezone_set('America/New_York');
-							$tz = $_POST['timezone'];
-							//date_default_timezone_set($tz);
-							//date($comment[4],'y-m-d h:i:s');
-							$tz = new DateTimeZone($tz);
-
-							$date = new DateTime($comment[4]);
-							$date->setTimezone($tz);
-							//echo $date->format('l F j Y g:i:s A I')."\n";
-							
-							$result.= '<span class="post_timestamp" id="comment_date"> '.$this->date_format($date->format('Y-m-d H:i:s'),$tz).' ago</span> ';
-							
 						$result.=	'</div>';
 					$result.=   '</div>';
 				}
@@ -717,7 +706,7 @@
 					$result.= '<li id="'.$list[0].'_'.$list[5].'_liked_user" class="ui-btn  ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-up-c" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c">';
 					$result.= '<div class="ui-btn-inner ui-li">';
 					$result.= '<div class="ui-btn-text">';
-					$result.= '<a class="ui-link-inherit" href="#">';
+					$result.= '<a class="ui-link-inherit" href="#" id="'.$list[5].'" onclick="show_post_detail(this) ">';
 					if($list[3] != null)
 						$result.= '<img class="ui-li-thumb" src="'.$list[3].'" style="width:3em; height:3em;">';
 					else
@@ -745,7 +734,7 @@
 					$result.= '<li id="'.$value[0].'_friends_li_item" class="ui-btn  ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-up-c" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c">';
 					$result.= '<div class="ui-btn-inner ui-li">';
 					$result.= '<div class="ui-btn-text">';
-					$result.= '<a class="ui-link-inherit" href="#">';
+					$result.= '<a class="ui-link-inherit" href="#" id="'.$value[5].'" onclick="show_post_detail(this) " >';
 					if($value[3] != null)
 						$result.= '<img class="ui-li-thumb" src="'.$value[3].'" style="width:3em; height:3em;">';
 					else
@@ -802,6 +791,7 @@
 			else
 				$user_id = 0;
 			$post_id = $_POST["id"];
+			$user_details = getUserNameById($user_id);
 			$post_details = getPostDetails($post_id);
 			$post_comments = getShowComments($post_id, $user_id);
 			$result = "";
@@ -810,17 +800,46 @@
 				$result.= '<div class="post_wrap" id="'.$post_details[0].'">';
 						$result.= '<div class="post_wrap_author_profile_picture">';
 							if($post_details[6] != null)
-								{$result.= '<img src="'.$post_details[6].'" style="width: 132%; height: 35px;" />';}
+								{$result.= '<img src="'.$post_details[6].'" style="width: 100%;max-height: 30px;" />';}
 							else{
 								$result.= '<img src="images/profile_pic.jpg" />';}
 						$result.= '</div>';
 						$result.= '<div class="post_details"> ';
-							$result.= '<div class="post_author" style="margin-left: -27px; margin-top: -5px;font-size: 15px;"> '.$post_details[1].' </div>';							
-								$result.= '<div class="post_text" style="margin: 1px 0 1px -25px;font-size: 12px; width: 90%;"> '.$post_details[2].' </div>';
+								$tz = $_POST['timezone'];						
+								$tz = new DateTimeZone($tz);
+								$date = new DateTime($post_details[3]);
+								$date->setTimezone($tz);
+						
+							$result.= '<div class="post_author"> '.$post_details[1].' <span class="post_timestamp" id="comment_date"> '.$this->date_format($date->format('Y-m-d H:i:s'),$tz).' ago</span> </div>';
+							
+							$result.= '<div class="post_text"> <span style="word-wrap: break-word;">'.$post_details[2].' </span></div>';
 						$result.= '</div>';
-				if($post_comments != null){
-					foreach ($post_comments as $comment){
-					$result.=	'<div class="comment" id="'.$comment[0].'" style="margin-top:50px">';
+					$result.= '</div> ';
+					
+					$result.= ' <div class="comments_wrap" style="width: 100%">';
+						$result.= '<span> <span><img src="images/like.png" /></span>';						
+						$result.= '<span class="post_feedback_like_unlike" id="'.$post_details[0].'_like_'.$post_details[5].'"  onclick="post_like(this,'.$user_id.')">'.getLikeorUnlike($post_details[0], 0, $user_id).'</span>';		
+						$result.= ' <span class="post_feedback_count" id="'.$post_details[0].'_like_count"> '.$post_details[5].'</span></span>';  
+						
+						$result.= '<span><span class="post_feedback_comment" onclick="show_comments('.$post_details[0].','.$user_id.')"> <img src="images/comment.png" /> Comment</span>';
+						$result.= '<span class="post_feedback_count" id="'.$post_details[0].'_post_comment_count"> '.$post_details[4].'</span></span>';
+						
+						$result.=	'<div class="comment" id="'.$post_details[0].'_comment" >';
+						$result.=	'</div>';
+						
+						$result.= ' <div class="comment" id="'.$post_details[0].'_post_self_comment">';
+						if($user_details[1] != null)
+							{ $result.= '<div class="comment_author_profile_picture"> <img src="'.$user_details[1].'" /></div>';}
+						else{
+							$result.= '<div class="comment_author_profile_picture"> <img src="images/profile_pic.jpg" /></div>';}			
+							
+							$result.= '<div class="comment_text">';
+							$result.= '<textarea placeholder="Write a comment..." id="'.$post_details[0].'_comment_full_text_box" onKeyPress="return new_comment_forpost(this,event,'.$user_id.')" ></textarea>';
+					$result.= '</div></div></div>';
+			}
+			if($post_comments != null){
+				foreach ($post_comments as $comment){
+					$result.=	'<div class="comment" id="'.$comment[0].'">';
 						   
 						$result.=	'<div class="comment_author_profile_picture">';
 						if($comment[3]!= null)
@@ -830,19 +849,21 @@
 						$result.=	'</div>';
 						$result.=	'<div class="comment_details">';
 								
-							$result.=	'<div class="comment_author" >';
+							$tz = $_POST['timezone'];
+							$tz = new DateTimeZone($tz);
+							$date = new DateTime($comment[4]);
+							$date->setTimezone($tz);
+							
+							$result.=	'<div class="comment_author" > <span class="post_timestamp" id="comment_date"> '.$this->date_format($date->format('Y-m-d H:i:s'),$tz).' ago</span>';
 								$result.=	$comment[2];
 							$result.=	'</div>';
-								
-							$result.=	'<div class="comment_text" >';
-								$result.=	$comment[1];
-							$result.=	'</div>';							
 							
+							$result.=	'<div class="comment_text"  style= "word-wrap: break-word;">';
+								$result.=	$comment[1];
+							$result.=	'</div>';	
 						$result.=	'</div>';
 					$result.=   '</div>';
-					}
 				}
-					$result.= '</div> ';
 			}
 			$this->http_response($result, 200);
 		}

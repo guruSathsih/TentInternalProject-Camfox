@@ -44,7 +44,7 @@ function getTimezone()
 
 function to_search(e)
 {
-	window.location.href= 'http://localhost/camfox/home.html#search_new_friends';
+	window.location.href= 'http://localhost/camfoxgit/home.html#search_new_friends';
 }
 
 function search_friends(e) {
@@ -176,7 +176,7 @@ function register()
 						}						
 						else {
 							alert("Invalid User Credentials");
-							window.location.href= 'http://localhost/camfox/#register';	
+							window.location.href= 'http://localhost/camfoxgit/#register';	
 						}
 				}			
 			});
@@ -207,11 +207,11 @@ function dologin()
 						if(responseText > 0)
 						{
 						  // jQuery('#signindialog').click();						 
-						  window.location.href= 'http://localhost/camfox/home.html';	
+						  window.location.href= 'http://localhost/camfoxgit/home.html';	
 						}						
 						else {
 							alert("Invalid User Credentials");
-							window.location.href= 'http://localhost/camfox/#signin';							
+							window.location.href= 'http://localhost/camfoxgit/#signin';							
 						}
 				}			
 			});
@@ -264,7 +264,7 @@ function logout_function()
 				//data: $("#signin_form").serialize(),				
 				success:function(responseText){		
 							//alert(responseText);
-						   window.location.href= 'http://localhost/camfox/';							
+						   window.location.href= 'http://localhost/camfoxgit/';							
 				}			
 			});
 }
@@ -278,10 +278,10 @@ function check_user_session()
 				success:function(responseText){		
 						//alert(responseText);
 						if(responseText == 0){
-						   window.location.href= 'http://localhost/camfox/home.html'; 
+						   window.location.href= 'http://localhost/camfoxgit/home.html'; 
 						   }
 						 else{							
-							window.location.href= 'http://localhost/camfox/#signin';	
+							window.location.href= 'http://localhost/camfoxgit/#signin';	
 							}
 				}			
 			});
@@ -408,6 +408,41 @@ function new_comment(comment_box_id,return_key_event,user_session_id)
             $.post(getBaseURL()+"process/api.php?rquest=new_comment",{post_id:post_id_of_comment,comment_text:new_comment_text,user_id:user_session_id, count:comments_count},function(output){
                     //placing the new comment before the last self-comment box
                 	$('#'+post_id_of_comment+'_self_comment').before(output);
+                    //increasing number of comments by 1
+                	$('#'+(post_comment_count)).html(
+                	parseInt($('#'+(post_comment_count)).html())+1
+                	);
+                    //clearing comment text in the textarea
+                	$('#'+(comment_box_id.id)).val(null);
+        	}); 	
+      }	
+};
+
+function new_comment_forpost(comment_box_id,return_key_event,user_session_id)
+{
+	//if condition to check if the user clicked Enter
+	if(return_key_event && return_key_event.keyCode == 13)
+       {
+            //if condition to ckeck if the user has not entered blank comment
+        	if(!$.trim($('#'+(comment_box_id.id)).val()))
+        	{
+				alert("Please enter some text in the comment");
+        		return;	
+        	} 
+    	    
+            //Getting comment text
+    	    var new_comment_text= $('#'+(comment_box_id.id)).val();
+            //Getting post id of the post on which the user has commented
+    	    var post_id_of_comment= ((comment_box_id.id).split("_")) [0];
+            //Getting span id which shows the comment count
+            var post_comment_count = post_id_of_comment+'_post_comment_count';
+            
+			var comments_count = parseInt($('#'+(post_comment_count)).html())+1;
+            //Ajax POST request to call new_comment.php
+            //Sends Post ID, Comment text and User ID as parameter	
+            $.post(getBaseURL()+"process/api.php?rquest=new_comment",{post_id:post_id_of_comment,comment_text:new_comment_text,user_id:user_session_id, count:comments_count},function(output){
+                    //placing the new comment before the last self-comment box
+                	$('#'+post_id_of_comment+'_post_self_comment').after(output);
                     //increasing number of comments by 1
                 	$('#'+(post_comment_count)).html(
                 	parseInt($('#'+(post_comment_count)).html())+1
@@ -568,15 +603,16 @@ function delete_friend_request(remove_element)
 
 function show_post_detail(readmore_element)
 {
+	var user_time_zone = getTimeZoneG();
 	var post_id = readmore_element.id;
 	$.ajax({
 			type:'POST',				
 			url: getBaseURL()+"process/api.php?rquest=show_post_detail",
-			data: {id : post_id},
+			data: {id : post_id,timezone: user_time_zone},
 			success:function(responseText){						
 					if(responseText != null)
 					{						
-						window.location.href= 'http://localhost/camfox/home.html#post_fullview';
+						window.location.href= 'http://localhost/camfoxgit/home.html#post_fullview';
 						document.getElementById("post_details").innerHTML=responseText;
 					}						
 					else {

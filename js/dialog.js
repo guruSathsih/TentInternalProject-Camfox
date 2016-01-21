@@ -7,7 +7,7 @@ $(document).delegate('#signindialog', 'click', function() {
 				'buttons' : {
 				  'OK': {
 					click: function () {
-						window.location.href= 'http://localhost/camfox/home.html';
+						window.location.href= 'http://localhost/camfoxgit/home.html';
 					}
 				  },
 				  'Cancel': {
@@ -30,7 +30,7 @@ $(document).delegate('#signindialog', 'click', function() {
 				'buttons' : {
 				  'OK': {
 					click: function () {
-						window.location.href= 'http://localhost/camfox/#signin';
+						window.location.href= 'http://localhost/camfoxgit/#signin';
 					}
 				  },
 				  'Cancel': {
