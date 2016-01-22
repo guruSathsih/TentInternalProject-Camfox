@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.css">
+		<script src="js/jquery-1.11.3.js"></script>
+		<script src="js/jquery.mobile-1.4.5.js"></script>
+		
+		<script src="js/jstz-1.0.4.min.js"></script>
+		
+		<link rel="stylesheet" href="css/style.css">
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+		
+		<script src="js/actions.js"></script>
+		<script src="js/dialog.js"></script>
+		
+		<script type="text/javascript"> 
+			$(document).ready(function(){				
+				check_user_session();
+			});
+			function call(){
+				 var kcyear = document.getElementsByName("year")[0], kcmonth = document.getElementsByName("month")[0], kcday = document.getElementsByName("day")[0]; 
+				 var d = new Date();
+				 var n = d.getFullYear();
+				 for (var i = n; i >= 1950; i--)
+				 { 
+					 var opt = new Option();
+					 opt.value = opt.text = i; kcyear.add(opt); 
+				 } 
+				 kcyear.addEventListener("change", validate_date); 
+				 kcmonth.addEventListener("change", validate_date); 
+				 
+				 function validate_date() 
+				 { 
+					 var y = +kcyear.value, m = kcmonth.value, d = kcday.value; 
+					 if (m === "2") 
+						var mlength = 28 + (!(y & 3) && ((y % 100) !== 0 || !(y & 15))); 
+					 else 
+						var mlength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][m - 1];
+					kcday.length = 0; 
+					for (var i = 1; i <= mlength; i++)
+					{
+						var opt = new Option(); 
+						opt.value = opt.text = i;
+						if (i == d)
+							opt.selected = true; kcday.add(opt); 
+					} 
+				} 
+				validate_date(); 
+			}	
+			
+			
+		</script> 
+		
+		<style>
+			.ui-page .ui-header {
+				background: #11a525 none repeat scroll 0 0 !important;
+			}
+			.signin_page
+			{
+				background: #11a525 none repeat scroll 0 0 !important;
+				color : #fff;
+			}
+			.signin_title
+			{
+				height:129px;
+				text-align: center;
+			}
+			input:focus{
+				outline: 0;
+			}
+			
+			.ui-shadow-inset {
+				background-color:#11a525 !important;
+				border-color: #11a525 !important;
+				border-bottom: 2px inset #73ad21;
+				color: #ddd !important;
+				text-shadow: 0 1px 0 #f3f3f3;
+				box-shadow: 0 0 0 rgba(0, 0, 0, 0.2) inset !important;
+			}
+			.ui-input-btn
+			{
+				background-color:#9ACD32 !important;
+				border-color: #11a525 !important;
+				color: #ddd !important;
+				border-radius: 0.00125em;
+				font-size: 15px;
+			}
+			.ui-page-theme-a a, html .ui-bar-a a, html .ui-body-a a, html body .ui-group-theme-a a {
+			  color: #ADFF2F !important;
+			  font-weight: normal;
+			  text-decoration: none;
+			  font-size: 13px;
+			  margin-left: 29%;
+			}
+			.ui-page-theme-a a:hover, html .ui-bar-a a:hover, html .ui-body-a a:hover, html body .ui-group-theme-a a:hover {
+				color:#ddd !important;
+			}
+		</style>		
+	</head>
+	<body>
+
+		<div data-role="page" id="index">
+		  <div data-role="header">
+			<h1>CAMFOX</h1>
+		  </div>
+
+		  <div data-role="main" class="ui-content" data-theme="e">
+			<a href="#signin" data-transition="slide">Sign In</a>
+			<p>Not a user, Click on the link to Register.<a href="#register" data-transition="slide">Sign Up</a></p>
+			
+		  </div>
+
+		  <div data-role="footer">
+			<h1>Tent Software</h1>
+		  </div>
+		</div> 
+		
+		
+
+		<div data-role="page" id="register" >
+		  <div data-role="header">
+			<h1>CAMFOX</h1>
+		  </div>
+
+		  <div data-role="main" class="ui-content" >
+			<form id="signup_form" method="post" action="" >
+				<label for="uname">User Name:</label> 
+				<input type="text" name="uname" id="uname">
+				
+				<label for="fname">First name:</label>
+				<input type="text" name="fname" id="fname">
+				
+				<label for="sname">Sur Name</label>
+				<input type="text" name="sname" id="sname">
+				
+				<label for="email">Email Id:</label>
+				<input type="email" name="email" id="email">
+				
+				<label for="mobno">Mobile No:</label>
+				<input type="text" name="mobno" id="mobno">
+				
+				<label for="password">Password: </label>
+				<input type="password" name="password" id="password">
+				
+		<!--	<label for="b_date">Birth Date:</label>		
+				<input type="text" name="b_date" id="b_date" data-role="datebox" data-options='{"mode":"calbox"}'> -->
+
+				<div class="register-form-row">
+					<div class="register-form-row-col">Date Of Birth :</div> 
+					<div class="register-form-row-col">
+						Month :
+						<select name="month" onchange="call()" > 
+						<option value="">select</option> 
+						<option value="1">Jan</option> 
+						<option value="2">Feb</option> 
+						<option value="3">Mar</option> 
+						<option value="4">Apr</option> 
+						<option value="5">May</option> 
+						<option value="6">Jun</option> 
+						<option value="7">Jul</option> 
+						<option value="8">Aug</option> 
+						<option value="9">Sep</option> 
+						<option value="10">Oct</option>
+						<option value="11">Nov</option> 
+						<option value="12">Dec</option> 
+						</select> Day :<select name="day" > 
+						<option value="">select</option>
+						</select> Year:<select name="year" onchange="call()">
+						<option value="">select</option> 
+						</select> 
+					</div>
+				</div> 
+				
+				 <fieldset data-role="controlgroup">
+					<legend>Choose your gender:</legend>
+					  <label for="male">Male</label>
+					  <input type="radio" name="gender" id="male" value="male">
+					  <label for="female">Female</label>
+					  <input type="radio" name="gender" id="female" value="female">
+				 </fieldset> 
+				 
+				 <input type="submit" name= "submit" value="Submit" onclick="register();return false;"></input>
+				 <input type="reset" name="reset" value="Reset"></input>
+				
+			</form>
+			
+			<a href="#" id="registerdialog" data-role="button" style="display:none" > open dialog</a>
+			
+			<a href="#signin" data-transition="slide" data-direction="reverse">Go to login page</a>
+		  </div>
+
+		  <div data-role="footer">
+			<h1>Tent Software</h1>
+		  </div>
+		</div> 
+		
+		
+		
+		<div data-role="page" id="signin" class = "signin_page">
+		  
+		  <div data-role="main" class="ui-content signin_page">
+			<div id="title" class = "signin_title">
+				<span style= "font-family:Bradley Hand ITC; font-size: 2em; font-weight: bold;">Cam<span style="font-size:2.5em;">f</span>ox </span>
+			</div>
+			<form id="signin_form" method="post" action="" >
+				<div class="signin_form_input">
+					<input type="text" name="username" id="username"  placeholder="User Name">				
+					
+					<input type="password" name="userpassword" id="userpassword"  placeholder="Password">
+					</br>
+					 <input type="submit" name= "submit" value="Login" onclick="dologin();return false;" ></input>
+				</div> 
+			</form>			
+			<div id="login_dialog" style="display: none">
+				User logged in successfully
+			</div>			
+			
+			<a href="#" id="signindialog" data-role="button" style="display:none" > open dialog</a>
+			</br></br>
+			<a href="#register" data-transition="slide" data-direction="reverse">Sign up for Camfox</a>
+		  </div>
+		  
+		</div> 
+	
+	</body>
+</html>

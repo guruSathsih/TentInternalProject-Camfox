@@ -1,0 +1,433 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="css/jquery.mobile-1.4.5.css">
+		<script src="js/jquery-1.11.3.js"></script>
+		<script src="js/jquery.mobile-1.4.5.js"></script>
+		
+		<script src="js/jstz-1.0.4.min.js"></script>
+		
+		<link rel="stylesheet" href="css/style.css">
+		<!--<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> -->
+		
+		<script src="js/actions.js"></script>
+		<script src="js/dialog.js"></script>
+		
+		<script>
+			$(document).on("pagebeforeshow","#contacts",function(){ // When entering contacts page			  
+				show_requested_friends();
+				remove_friend_notification();
+			}); 
+			
+			$(document).on("pagebeforeshow","#news",function(){ // When entering news event page	 
+				remove_event_notification();
+				show_events();
+			});
+			
+			$(document).on("pagebeforeshow","#friends",function(){ // When entering friends page			  
+				getFriends();
+			}); 
+			
+			$(document).on("pagebeforeshow","#index",function(){ // When entering index page	
+				user_profile();
+				post_content();
+				get_friend_notification();				
+				get_events_notification();
+			});
+			setInterval(function(){				
+				$.ajax({
+				type:'POST',				
+				url: getBaseURL()+"process/api.php?rquest=setDateTimeForEveryMinute",	
+				success:function(responseText){						
+					}			
+				});
+			},30000);			
+		</script>
+		
+		<style>
+			
+			.ui-page .ui-header {
+				background: #11a525 none repeat scroll 0 0 !important;
+				position: fixed;
+				width: 85%;
+				z-index: 1;	
+					
+			}
+			.footer
+			{				
+				background-color: rgba(10, 96, 21,1.0) !important;
+				color: #fff !important;
+			}
+			.ui-content {			  
+			  padding: 1.5em;
+			}
+			.ui-btn-left, .ui-btn-right {
+			  position: absolute;
+			  top: 0.6em !important;
+			}
+			.ui-mini {
+			  font-size: 8.5px;
+			  margin: -16px 32px -37px -15px;
+			}	
+			#friends {
+				  background-color: #3b3b3b;
+				  border-color: #bbb;
+				 // color: #fff;
+				  text-shadow: none;
+				  font-size: 13px;				
+			}
+			ul li a
+			{
+				//color:#fdfdfd !important;
+			}
+			ul
+			{
+				list-style-type: none;
+				//color:#fff;
+				padding:0;
+			}
+			a:link {
+				//color: #538585;
+				text-decoration: none;
+			}
+			a:hover {
+				//color: red !important;
+			}
+			.ui-listview > li p {
+				  display: block;
+				  font-size: 0.75em;
+				  font-weight: 400;
+				  margin: 6px 9px 24px 60px;
+				  overflow: hidden;
+				  padding-left: 1px;
+				  text-align: left;
+				  text-overflow: ellipsis;
+				  white-space: nowrap;
+			}
+			.ui-btn-icon-left::after, .ui-btn-icon-right::after, .ui-btn-icon-top::after, .ui-btn-icon-bottom::after, .ui-btn-icon-notext::after {
+					//background-color: rgba(0, 0, 0, 0);
+				  background-position: center center;
+				  background-repeat: no-repeat;
+				  border-radius: 1em;
+				}
+			#contacts_title {
+			  float: left;
+			  font-size: 0.8em;
+			  font-weight: normal;
+			  position: absolute;
+			  top: 97px;
+			}
+			#post_textarea{
+				//width:45%;
+				//height:60px;
+				//border-width: 1px;
+				//font-size: 20px;
+			}			
+			.ui-page-theme-a .ui-btn, html .ui-bar-a .ui-btn, html .ui-body-a .ui-btn, html body .ui-group-theme-a .ui-btn, html head + body .ui-btn.ui-btn-a, .ui-page-theme-a .ui-btn:visited, html .ui-bar-a .ui-btn:visited, html .ui-body-a .ui-btn:visited, html body .ui-group-theme-a .ui-btn:visited, html head + body .ui-btn.ui-btn-a:visited {
+			  border-color: #ddd;
+			  text-shadow: 0 1px 0 #f3f3f3;			  
+			}			
+			div.friends_list > ul li
+			{
+				height: 50px;
+				padding: 0 !important;
+			}
+			.camera_button {
+			  background: #9ACD32 none repeat scroll 0 0 !important;
+			  color: #fff !important;
+			  font-family: sans-serif;
+			  font-size: 12px;
+			  font-weight: 400;
+			  margin: -3.5em 12em;
+			  padding: 0.7em 2.6em;
+			  position: fixed;
+			  border-style: none;
+			}
+			.friends_button{
+				background-color: transparent !important;				
+			}				
+			.status_button {
+			  background: #9ACD32 none repeat scroll 0 0 !important;
+			  color: #fff !important;
+			  font-family: sans-serif;
+			  font-size: 12px;
+			  font-weight: 400;
+			  margin: -3.5em 6em;
+			  padding: 0.7em 2.6em;
+			  position: fixed;
+			  border-style: none;
+			}
+			.logout_button {
+			  background: #9ACD32 none repeat scroll 0 0 !important;
+			  color: #fff !important;
+			  font-family: sans-serif;
+			  font-size: 12px;
+			  font-weight: 400;
+			  margin: -3.5em 18.7em;
+			  padding: 0.7em 2.6em;
+			  position: fixed;
+			  border-style: none;
+			}
+			.user-profile-content {
+			  background: #9ACD32 none repeat scroll 0 0 !important;
+			  height: 2.7em;
+			  left: 0;
+			  padding: 5px;
+			  position: fixed;
+			  width: 100%;
+			  z-index: 1;
+			}	
+			.user-profile-content  a img	{
+				width: 2.7em;
+				height: 2.7em;
+			}
+			.post_content_area {
+			  clear: both;
+			  margin: 24px 0 5px;
+			  overflow: auto;
+			}
+			.app_icons {
+			  background: #fff none repeat scroll 0 0;
+			  display: block;
+			  height: 39px;
+			  left: 0;
+			  margin: 0;
+			  width: 100%;
+			}
+			.app_icons a img
+			{			  
+			  position: fixed;
+			  top: 113px;
+			  width: 1.7em;
+			  height: 1.7em;
+			}
+			.app_icons a:active img
+			{
+				border-bottom: 4px solid;
+				padding: 0 4px 5px;
+			}
+			.circle {
+			  background-color: red;
+			  border-radius: 8px;
+			  color: #fff;
+			  font-size: 0.69em;
+			  font-weight: normal;
+			  height: 16px;
+			  padding-left: 0;
+			  position: fixed;
+			  text-align: center;
+			  width: 16px;
+			}
+			.added_friends_list ul li
+			{
+				background-color: transparent !important;
+				border-color: #484848 !important;
+				text-shadow: none !important;
+				height: 40px;
+			}
+			#back-to-home {
+			  position: absolute;
+			 top: 90%;		 
+			}
+			.online_circle {
+			  background-color: #46463e;
+			  border-radius: 6px;
+			  height: 12px;
+			  margin-left: 279px;
+			  margin-top: -34px;
+			  padding-left: 0;
+			  width: 12px;
+			}
+			.event_changed {
+			  color: #999;
+			  float: left;
+			  font-size: 12px;
+			  margin-left: 61px;
+			  margin-top: -22px;
+			}
+			.post_fullview_details{
+				margin-top: 90px;
+			}
+		</style>
+	</head>
+	<body>
+		<div data-role="page" id="index">
+		  <div data-role="header" class="ui-content">
+			<input type="search" name="search-mini" id="search-mini" onfocus="return to_search(event)" value="" data-mini="true" placeholder="Name,E-mail,Mobile no" > 
+			<a href="#friends" data-transition="slide"  class="ui-btn-right ui-btn ui-corner-all ui-icon-user ui-btn-icon-notext friends_button"></a>
+		  </div>
+
+		  <div data-role="main" class="ui-content" data-theme="e">			
+			<div id="main-content">	
+				
+				<div id="div_new_post" >
+					<div id="top-content" class = "user-profile-content">
+						<a class="ui-link-inherit" href="#">
+							<span id="user_pic" >  </span>
+						</a>
+						<a href="">
+							<p class="ui-btn ui-icon-edit ui-btn-icon-left status_button">status</p>
+						</a>
+						<a href="">
+							<p class="ui-btn ui-icon-camera ui-btn-icon-left camera_button">camera</p>
+						</a>
+						<a onClick="logout_function(); return false;" href="">
+							<p class="ui-btn ui-icon-lock ui-btn-icon-left logout_button">logout</p>
+						</a>
+						<div class="app_icons">
+							<a href="#index" data-transition="slide" data-direction="reverse" ><img src="images/restore-window-xxl.png" style="left:10%; border-bottom: 4px solid; padding: 0 10px 5px;" /> </a>
+							<a href="#contacts" data-transition="slide" ><img src="images/friends.png" style="left:33%;" /> <span class = "friReq_notify" style="top: 107px; left: 40%; position: fixed;"> </span> </a>
+							<a href="#news" data-transition="slide"><img src="images/events.png" style="left:57%" /> <span class = "events_notify" style="left:63%; position: fixed; top: 107px;"> </span> </a>
+							<a href="" ><img src="images/settings-icon.png" style="left:81%"/> </a>
+						</div>
+					</div>	
+				
+					<div id="div_post_content"  class = "post_content_area">
+						<textarea id="post_textarea" style="height: 52px; margin-top: 109px;">
+						</textarea>
+					</div>
+					
+					<div id="post_button" style="display:none;">
+						<a onClick="new_post(); return false;" class="button_style ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-left ui-btn-up-b" data-inline="true" data-icon="arrow-l" data-theme="b" data-role="button" href="" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span">
+							<span class="ui-btn-inner ui-btn-corner-all">
+							<span class="ui-btn-text">Post</span>
+							<span class="ui-icon ui-icon-arrow-l ui-icon-shadow"> </span>
+							</span>
+						</a>
+					</div>
+				</div>
+				
+				<div id="new_post_stream">
+				
+				</div>
+				
+				<div id="post_stream">
+				
+				</div>
+				
+			</div>
+		  </div>
+		</div> 
+		
+		<div data-role="page" id="friends">		  
+		  <div data-role="main" class="ui-content">
+		  <div id="contact_list" class = "added_friends_list">
+			
+		  </div>
+			<div id= "back-to-home">
+				<a href="#index" data-transition="slide" data-direction="reverse" >Go to home page</a>
+			</div>
+		  </div>
+		</div>
+		
+		<div data-role="page" id="contacts">		  
+		 
+		 <div data-role="header" class="ui-content">
+			<input type="search" name="search-mini" id="search-mini" value="" data-mini="true">
+			<a href="#friends" data-transition="slide"  class="ui-btn-right ui-btn ui-corner-all ui-icon-user ui-btn-icon-notext friends_button"></a>
+		 </div>
+
+		 <div data-role="main" class="ui-content">
+			<div class="app_icons" style="position: fixed; top: 48px; left: 0; z-index: 1;">
+				<a href="#index" data-transition="slide" data-direction="reverse" ><img src="images/restore-window-xxl.png" style="left:10%; top: 55px;" /> </a>
+				<a href="#contacts" data-transition="slide" ><img src="images/friends.png" style="left:33%; top: 55px;  border-bottom: 4px solid; padding: 0 10px 5px;" />  </a>
+				<a href="#news" data-transition="slide"><img src="images/events.png" style="left:57%; top: 55px;" /> <span class = "events_notify" style="left:63%; position: fixed; top: 52px;"> </span> </a>
+				<a href="" ><img src="images/settings-icon.png" style="left:81%; top: 55px;"/> </a>
+			</div>
+			<div id="main-content">					
+				<div id= "contacts_title">
+					<span>Contacts List</span>
+				</div>
+				<div id="requested_friends_list" class = "friends_list">
+					
+				</div>							
+			</div>
+		 </div>
+		</div>
+		
+		<div data-role="page" id="search_new_friends">		  
+		 
+		 <div data-role="header" class="ui-content">
+			<input type="search" name="search-mini" id="search-new-friends" onkeypress="return search_friends(event)" value="" data-mini="true" placeholder="Name,E-mail,Mobile no" > 
+			<a href="#friends" data-transition="slide"  class="ui-btn-right ui-btn ui-corner-all ui-icon-user ui-btn-icon-notext friends_button"></a>
+		 </div>
+
+		 <div data-role="main" class="ui-content">
+			<div class="app_icons" style="position: fixed; top: 48px; left: 0; z-index: 1;">
+				<a href="#index" data-transition="slide" data-direction="reverse" ><img src="images/restore-window-xxl.png" style="left:10%; top: 55px;" /> </a>
+				<a href="#contacts" data-transition="slide" ><img src="images/friends.png" style="left:33%; top: 55px;" /> <span class = "friReq_notify" style="left: 40%; position: fixed; top: 51px;"> </span></a>
+				<a href="#news" data-transition="slide"><img src="images/events.png" style="left:57%; top: 55px;" /><span class = "events_notify" style="left:63%; position: fixed; top: 52px;""> </span> </a>
+				<a href="" ><img src="images/settings-icon.png" style="left:81%; top: 55px;"/> </a>
+			</div>
+			<div id="main-content">					
+				<div id= "contacts_title">
+					<span>Contacts List</span>
+					
+				</div>
+				<div id="new_friends_list" class = "friends_list">
+					
+				</div>
+							
+			</div>
+		 </div>
+		</div>
+		
+		<div data-role="page" id="news">		  
+		 
+		 <div data-role="header" class="ui-content">
+			<input type="search" name="search-mini" id="search-mini" value="" data-mini="true">
+			<a href="#friends" data-transition="slide"  class="ui-btn-right ui-btn ui-corner-all ui-icon-user ui-btn-icon-notext friends_button"></a>
+		 </div>
+
+		 <div data-role="main" class="ui-content">
+			<div class="app_icons" style="position: fixed; top: 48px; left: 0; z-index: 1;">
+				<a href="#index" data-transition="slide" data-direction="reverse" ><img src="images/restore-window-xxl.png" style="left:10%; top: 55px;" /> </a>
+				<a href="#contacts" data-transition="slide" ><img src="images/friends.png" style="left:33%; top: 55px; " />  </a>
+				<a href="#news" data-transition="slide"><img src="images/events.png" style="left:57%; top: 55px;  border-bottom: 4px solid; padding: 0 10px 5px;" /> </a>
+				<a href="" ><img src="images/settings-icon.png" style="left:81%; top: 55px;"/> </a>
+			</div>
+			<div id="main-content">				
+				<div id="friends_states_main" class = "friends_list">
+					
+				</div>							
+			</div>
+		 </div>
+		</div>
+		
+		<div data-role="page" id="post_fullview">		  
+		 
+		 <div data-role="header" class="ui-content">
+			<input type="search" name="search-mini" id="search-new-friends" onkeypress="return search_friends(event)" value="" data-mini="true" placeholder="Name,E-mail,Mobile no" > 
+			<a href="#friends" data-transition="slide"  class="ui-btn-right ui-btn ui-corner-all ui-icon-user ui-btn-icon-notext friends_button"></a>
+		 </div>
+
+		 <div data-role="main" class="ui-content">
+			<div class="app_icons" style="position: fixed; top: 48px; left: 0; z-index: 1;">
+				<a href="#index" data-transition="slide" data-direction="reverse" ><img src="images/restore-window-xxl.png" style="left:10%; top: 55px;" /> </a>
+				<a href="#contacts" data-transition="slide" ><img src="images/friends.png" style="left:33%; top: 55px;" /> <span class = "friReq_notify" style="left: 40%; position: fixed; top: 51px;"> </span></a>
+				<a href="#news" data-transition="slide"><img src="images/events.png" style="left:57%; top: 55px;" /><span class = "events_notify" style="left:63%; position: fixed; top: 52px;""> </span> </a>
+				<a href="" ><img src="images/settings-icon.png" style="left:81%; top: 55px;"/> </a>
+			</div>
+			<div id="main-content">					
+				
+				<div id="post_details" class = "post_fullview_details">
+					
+				</div>
+							
+			</div>
+		 </div>
+		</div>
+		
+		<script>
+		
+			$( "textarea" ).focus(function(e) {
+				 $('#post_button').css("display","block");
+			});
+
+		/*	$( "textarea" ).blur(function(e) {
+				 //$('#post_button').click(function () { new_post(); });
+				 $('#post_button').css("display","none");
+			});	*/
+		</script>
+	</body>
+</html>
