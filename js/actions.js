@@ -12,12 +12,8 @@ function getBaseURL() {
         var baseLocalUrl = url.substr(0, index2);
       return baseLocalUrl + "/";
     }    
-    else {
-        // Root Url for domain name
-        //return baseURL + "/spillmobile/";
-		//return "http://creatustent.com/spillmobile/";
-		return "http://creatustent.com/TSLMS/";
-		//return "file:///android_asset/spillmobile/";
+    else {        
+		return "http://creatustent.com/camfox/";
     }
 }
 
@@ -207,11 +203,11 @@ function dologin()
 						if(responseText > 0)
 						{
 						  // jQuery('#signindialog').click();						 
-						  window.location.href= 'http://localhost/camfoxgit/home.html';	
+						  window.location.href= 'home.html';	
 						}						
 						else {
 							alert("Invalid User Credentials");
-							window.location.href= 'http://localhost/camfoxgit/#signin';							
+							window.location.href= '#signin';							
 						}
 				}			
 			});
@@ -264,7 +260,7 @@ function logout_function()
 				//data: $("#signin_form").serialize(),				
 				success:function(responseText){		
 							//alert(responseText);
-						   window.location.href= 'http://localhost/camfoxgit/';							
+						   window.location.href= 'index.html';							
 				}			
 			});
 }
@@ -278,10 +274,10 @@ function check_user_session()
 				success:function(responseText){		
 						//alert(responseText);
 						if(responseText == 0){
-						   window.location.href= 'http://localhost/camfoxgit/home.html'; 
+						   window.location.href= 'home.html'; 
 						   }
 						 else{							
-							window.location.href= 'http://localhost/camfoxgit/#signin';	
+							window.location.href= '#signin';	
 							}
 				}			
 			});
@@ -612,7 +608,7 @@ function show_post_detail(readmore_element)
 			success:function(responseText){						
 					if(responseText != null)
 					{						
-						window.location.href= 'http://localhost/camfoxgit/home.html#post_fullview';
+						window.location.href= 'home.html#post_fullview';
 						document.getElementById("post_details").innerHTML=responseText;
 					}						
 					else {

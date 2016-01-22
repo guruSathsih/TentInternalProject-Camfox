@@ -703,14 +703,14 @@
 			{	
 				foreach($likes_byfriends as $list)
 				{
-					$result.= '<li id="'.$list[0].'_'.$list[5].'_liked_user" class="ui-btn  ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-up-c" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c">';
+					$result.= '<li id="'.$list[0].'_'.$list[5].'_liked_user" style="border-style:none" class="ui-btn  ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-up-c" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c">';
 					$result.= '<div class="ui-btn-inner ui-li">';
 					$result.= '<div class="ui-btn-text">';
 					$result.= '<a class="ui-link-inherit" href="#" id="'.$list[5].'" onclick="show_post_detail(this) ">';
 					if($list[3] != null)
-						$result.= '<img class="ui-li-thumb" src="'.$list[3].'" style="width:3em; height:3em;">';
+						$result.= '<img class="ui-li-thumb" src="'.$list[3].'" style="width:3em; height:2em;">';
 					else
-						$result.=	'<img class="ui-li-thumb" src="images/profile_pic.jpg" style="width:3em; height:3em;"/>';
+						$result.=	'<img class="ui-li-thumb" src="images/profile_pic.jpg" style="width:3em; height:2em;"/>';
 					if($list[4] == 'female')
 						$result.= '<p class="ui-li-desc"><span style="font-weight:900; color:#333; font-size:1.2em">'.$list[1].'</span> liked your post</p>';
 					else	
@@ -731,14 +731,14 @@
 				
 				foreach($requested_list as $value)
 				{					
-					$result.= '<li id="'.$value[0].'_friends_li_item" class="ui-btn  ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-up-c" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c">';
+					$result.= '<li id="'.$value[0].'_friends_li_item" style="border-style:none" class="ui-btn  ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-up-c" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c">';
 					$result.= '<div class="ui-btn-inner ui-li">';
 					$result.= '<div class="ui-btn-text">';
 					$result.= '<a class="ui-link-inherit" href="#" id="'.$value[5].'" onclick="show_post_detail(this) " >';
 					if($value[3] != null)
-						$result.= '<img class="ui-li-thumb" src="'.$value[3].'" style="width:3em; height:3em;">';
+						$result.= '<img class="ui-li-thumb" src="'.$value[3].'" style="width:3em; height:2em;">';
 					else
-						$result.=	'<img class="ui-li-thumb" src="images/profile_pic.jpg" style="width:3em; height:3em;"/>';
+						$result.=	'<img class="ui-li-thumb" src="images/profile_pic.jpg" style="width:3em; height:2em;"/>';
 					if($value[4] == 'female')
 						$result.= '<p class="ui-li-desc"><span style="font-weight:900; color:#333; font-size:1.2em">'.$value[1].'</span> updated her states</p>';
 					else	
