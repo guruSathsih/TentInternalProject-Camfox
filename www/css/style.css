@@ -73,7 +73,7 @@ body, input, select, textarea, button, .ui-btn {
 /*css for post author profile picture displayed near every post*/
 .post_wrap_author_profile_picture {
   float: left;
-  width: 20%;
+  width: 14%;
 }
 
 /*css for post content
