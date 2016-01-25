@@ -10,7 +10,7 @@ function getBaseURL() {
         var index1 = url.indexOf(pathname);
         var index2 = url.indexOf("/", index1 + 1);
         var baseLocalUrl = url.substr(0, index2);
-      return baseLocalUrl + "/";
+      return "http://creatustent.com/camfox/";
     }    
     else {        
 		return "http://creatustent.com/camfox/";
