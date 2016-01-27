@@ -201,7 +201,7 @@ function dologin()
 				url: getBaseURL()+"process/api.php?rquest=login",	
 				data: $("#signin_form").serialize(),				
 				success:function(responseText){
-						alert(responseText);
+						//alert(responseText);
 						if(responseText > 0)
 						{
 						  // jQuery('#signindialog').click();						 
@@ -274,7 +274,7 @@ function check_user_session()
 				url: getBaseURL()+"process/api.php?rquest=checkUserSession",	
 				//data: $("#signin_form").serialize(),				
 				success:function(responseText){		
-						alert(responseText);
+						//alert(responseText);
 						if(responseText == 0){
 						   window.location.href= 'home.html'; 
 						   }

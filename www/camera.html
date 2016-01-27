@@ -16,6 +16,7 @@
     // PhoneGap is ready to be used!
     //
     function onDeviceReady() {
+		alert("device ready");
         pictureSource=navigator.camera.PictureSourceType;
         destinationType=navigator.camera.DestinationType;
     }
@@ -28,6 +29,7 @@
 
       // Get image handle
       //
+	  alert("photo data success");
       var smallImage = document.getElementById('smallImage');
 
       // Unhide image elements
@@ -63,6 +65,7 @@
     // A button will call this function
     //
     function capturePhoto() {
+		alert("Inside capture photo");
       // Take picture using device camera and retrieve image as base64-encoded string
       navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });
     }
