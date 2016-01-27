@@ -2,8 +2,7 @@
 <html>
   <head>
     <title>Capture Photo</title>
-
-    <script type="text/javascript" charset="utf-8" src="phonegap-1.0.0.js"></script>
+ <script type="text/javascript" src="cordova.js"></script> 
     <script type="text/javascript" charset="utf-8">
 
     var pictureSource;   // picture source
@@ -67,7 +66,7 @@
     function capturePhoto() {
 		alert("Inside capture photo");
       // Take picture using device camera and retrieve image as base64-encoded string
-      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });
+      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });alert("stop capture photo");
     }
 
     // A button will call this function
