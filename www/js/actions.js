@@ -10,7 +10,9 @@ function getBaseURL() {
         var index1 = url.indexOf(pathname);
         var index2 = url.indexOf("/", index1 + 1);
         var baseLocalUrl = url.substr(0, index2);
-      return "http://creatustent.com/camfox/";
+		//return "http://creatustent.com/camfox/";
+		return "http://localhost/camfoxbackup/";
+		//return "http://10.10.0.129/camfoxbackup/";
     }    
     else {        
 		return "http://creatustent.com/camfox/";
@@ -40,7 +42,7 @@ function getTimezone()
 
 function to_search(e)
 {
-	window.location.href= 'http://localhost/camfoxgit/home.html#search_new_friends';
+	window.location.href= 'home.html#search_new_friends';
 }
 
 function search_friends(e) {
@@ -172,7 +174,7 @@ function register()
 						}						
 						else {
 							alert("Invalid User Credentials");
-							window.location.href= 'http://localhost/camfoxgit/#register';	
+							window.location.href= '#register';	
 						}
 				}			
 			});
@@ -199,7 +201,7 @@ function dologin()
 				url: getBaseURL()+"process/api.php?rquest=login",	
 				data: $("#signin_form").serialize(),				
 				success:function(responseText){
-						//alert(responseText);
+						alert(responseText);
 						if(responseText > 0)
 						{
 						  // jQuery('#signindialog').click();						 
@@ -221,7 +223,7 @@ function user_profile()
 				type:'POST',				
 				url: getBaseURL()+"process/api.php?rquest=userProfile",	
 				//data: {user: userid},				
-				success:function(responseText){						
+				success:function(responseText){		 
 						if(responseText != 0)
 						{							
 							document.getElementById("user_pic").innerHTML=responseText;
@@ -272,7 +274,7 @@ function check_user_session()
 				url: getBaseURL()+"process/api.php?rquest=checkUserSession",	
 				//data: $("#signin_form").serialize(),				
 				success:function(responseText){		
-						//alert(responseText);
+						alert(responseText);
 						if(responseText == 0){
 						   window.location.href= 'home.html'; 
 						   }
