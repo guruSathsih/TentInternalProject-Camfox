@@ -5,6 +5,9 @@
  <script type="text/javascript" src="cordova.js"></script> 
     <script type="text/javascript" charset="utf-8"> 
 
+    var pictureSource;   // picture source
+    var destinationType; // sets the format of returned value
+
     // Wait for PhoneGap to connect with the device
     //
     document.addEventListener("deviceready",onDeviceReady,false);
@@ -12,16 +15,29 @@
     // PhoneGap is ready to be used!
     //
     function onDeviceReady() {
+		 pictureSource=navigator.camera.PictureSourceType;
+        destinationType=navigator.camera.DestinationType;
 		alert("device ready"); 
     }
 
     // Called when a photo is successfully retrieved
     //
     function onPhotoDataSuccess(imageData) {
-      // Uncomment to view the base64 encoded image data
-     
+      // Uncomment to view the base64-encoded image data
+      // console.log(imageData);
+
       // Get image handle
       //
+      var smallImage = document.getElementById('smallImage');
+
+      // Unhide image elements
+      //
+      smallImage.style.display = 'block';
+
+      // Show the captured photo
+      // The in-line CSS rules are used to resize the image
+      //
+      smallImage.src = "data:image/jpeg;base64," + imageData;
 	  alert("photo data success");
        
     }
@@ -29,10 +45,11 @@
      
     // A button will call this function
     //
-    function capturePhoto() {
+	function capturePhoto() {
 		alert("Inside capture photo");
       // Take picture using device camera and retrieve image as base64-encoded string
-      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });alert("stop capture photo");
+      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
+        destinationType: destinationType.DATA_URL });
     }
  
 
