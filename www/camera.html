@@ -25,7 +25,7 @@
     function onPhotoDataSuccess(imageData) {
       // Uncomment to view the base64-encoded image data
       // console.log(imageData);
-		alert(imageData);
+	  
 		alert("photo data success");
       // Get image handle
       //
@@ -39,9 +39,44 @@
       // The in-line CSS rules are used to resize the image
       //
       smallImage.src = "data:image/jpeg;base64," + imageData;
+    }	
+	
+	  function uploadPhoto(imageURI) { 
+      var options = new FileUploadOptions();
+	  options.fileKey = "file";
+	  options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
+	  options.mimeType = "image/jpeg";
 	  
-	  alert(smallImage.src);       
+	  pictureSource = imageURI.substr(imageURI.lastIndexOf('/')+1);
+	  alert("Name:"+pictureSource);
+	  //alert(imageURI);
+	  var params = new Object();
+      params.post_type = "image";
+	  
+      options.params = params;
+      options.chunkedMode = false;// If it is not set the PHP server won't able to read this image'
+	  var ft = new FileTransfer();
+	  ft.upload(imageURI,getBaseURL()+"process/api.php?rquest=uploadImage",win,fail,options);
+	  
+	  alert('completed uploading');
     }
+    function win(r){
+		alert('success'); 
+		alert("Response = " + r.response);
+		alert("Sent = " + r.bytesSent);
+		 var largeImage = document.getElementById('largeImage');
+      // Unhide image elements
+      //
+      largeImage.style.display = 'block';
+      // Show the captured photo
+      // The inline CSS rules are used to resize the image
+      //
+      largeImage.src = getSiteURL()+"/process/uploads/images/"+pictureSource;
+		
+	}
+	function fail(error){
+		alert('Failed');
+	}
 
      
     // A button will call this function
@@ -49,7 +84,7 @@
 	function capturePhoto() {
 		alert("Inside capture photo");
       // Take picture using device camera and retrieve image as base64-encoded string
-      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
+      navigator.camera.getPicture(uploadPhoto, onFail, { quality: 50,
         destinationType: destinationType.DATA_URL });
     }
  
@@ -64,5 +99,7 @@
   </head>
   <body>
     <button onclick="capturePhoto();">Capture Photo</button> <br> 
+	<img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+    <img style="display:none;" id="largeImage" src="" />
   </body>
 </html>

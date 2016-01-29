@@ -19,6 +19,15 @@ function getBaseURL() {
     }
 }
 
+function getSiteURL() {
+    var url = location.href;  // entire url including querystring - also: window.location.href; 
+	if(url.indexOf("http://localhost") != -1){
+		return "http://localhost/camfoxbackup/";
+	}else{
+		return "http://creatustent.com/camfox/";
+	}
+}
+
 function getTimeZoneG() {
     //return /\((.*)\)/.exec(new Date().toString())[1];
 	var zone = jstz.determine();
