@@ -39,9 +39,18 @@
       // The in-line CSS rules are used to resize the image
       //
       smallImage.src = "data:image/jpeg;base64," + imageData;
+	  uploadPhoto();
     }	
 	
-	  function uploadPhoto(imageURI) { 
+	  function uploadPhoto() { 
+	  
+	   //selected photo URI is in the src attribute (we set this on getPhoto)
+        var imageURI = document.getElementById('smallImage').getAttribute("src");
+        if (!imageURI) {
+            alert('Please select an image first.');
+            return;
+        }
+
       var options = new FileUploadOptions();
 	  options.fileKey = "file";
 	  options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
@@ -61,6 +70,7 @@
 	  
 	  alert('completed uploading');
     }
+	
     function win(r){
 		alert('success'); 
 		alert("Response = " + r.response);
@@ -85,7 +95,7 @@
 	function capturePhoto() {
 		alert("Inside capture photo");
       // Take picture using device camera and retrieve image as base64-encoded string
-      navigator.camera.getPicture(uploadPhoto, onFail, { quality: 50,
+      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
         destinationType: destinationType.DATA_URL });
     }
  
