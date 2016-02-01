@@ -38,20 +38,24 @@
       // Show the captured photo
       // The in-line CSS rules are used to resize the image
       //
-      smallImage.src = "data:image/jpeg;base64," + imageData;
+      smallImage.src = imageData;
 	  uploadPhoto();
     }	
 	
 	  function uploadPhoto() { 
 	  
 	   //selected photo URI is in the src attribute (we set this on getPhoto)
-        var imageURI = document.getElementById('smallImage').getAttribute("src");
+        var imageData = document.getElementById('smallImage').getAttribute("src");
         if (!imageURI) {
             alert('Please select an image first.');
             return;
         }
+		
+		var directory = "camfoxApp/";
+		var randomFileName = "sampleimg.png"; // this should be the filename 
+		saveImage(imageData,randomFileName,directory)
 
-      var options = new FileUploadOptions();
+     /* var options = new FileUploadOptions();
 	  options.fileKey = "file";
 	  options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
 	  options.mimeType = "image/jpeg";
@@ -68,7 +72,7 @@
 	  alert("after file transfer class");
 	  ft.upload(imageURI,getBaseURL()+"process/api.php?rquest=uploadImage",win,fail,options);
 	  
-	  alert('completed uploading');
+	  alert('completed uploading'); */
     }
 	
     function win(r){
@@ -105,6 +109,28 @@
     function onFail(message) {
       alert('Failed because: ' + message);
     }
+	
+	function saveImage(imageData,fileName,directory){
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function gotFile(fileSystem) {
+           fileSystem.root.getDirectory(directory, {create: true},  function fileSystemSuccess(fileSystem){
+               fileSystem.getFile("dummy.txt",{create: true,exclusive:false},function gotFileEntry(fileEntry){
+                    var path = fileEntry.fullPath.replace("dummy.txt","");
+                    fileEntry.remove();
+                    var fileTransfer = new FileTransfer();
+                    fileTransfer.download(imageData, path+""+fileName,function(theFile){
+
+                        alert("File Downloaded Successfully");
+                    },function(error){
+                        alert("File Download Failed"+ error.code);
+                    });
+                },failed);
+           });
+    }, failed);
+}
+
+function failed(e){
+    alert("Error Occured"+ e.code); 
+}
 
     </script>
   </head>
