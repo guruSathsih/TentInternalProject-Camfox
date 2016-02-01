@@ -51,10 +51,7 @@
             return;
         }
 		
-		var directory = "camfoxApp/";
-		var randomFileName = "sampleimg.png"; // this should be the filename 
-		saveImage(imageData,randomFileName,directory)
-
+		window.resolveLocalFileSystemURL(imageData, resolveOnSuccess, resOnError);
      /* var options = new FileUploadOptions();
 	  options.fileKey = "file";
 	  options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
@@ -110,27 +107,41 @@
       alert('Failed because: ' + message);
     }
 	
-	function saveImage(imageData,fileName,directory){
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function gotFile(fileSystem) {
-           fileSystem.root.getDirectory(directory, {create: true},  function fileSystemSuccess(fileSystem){
-               fileSystem.getFile("dummy.txt",{create: true,exclusive:false},function gotFileEntry(fileEntry){
-                    var path = fileEntry.fullPath.replace("dummy.txt","");
-                    fileEntry.remove();
-                    var fileTransfer = new FileTransfer();
-                    fileTransfer.download(imageData, path+""+fileName,function(theFile){
+function resolveOnSuccess(entry){
+        alert("resolvetosuccess");
 
-                        alert("File Downloaded Successfully");
-                    },function(error){
-                        alert("File Download Failed"+ error.code);
-                    });
-                },failed);
-           });
-    }, failed);
-}
+        //new file name
+        var newFileName = sample + ".jpg";
+        var myFolderApp = "ImgFolder";
 
-function failed(e){
-    alert("Error Occured"+ e.code); 
-}
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys) {
+            alert("folder create");
+
+            //The folder is created if doesn't exist
+            fileSys.root.getDirectory( myFolderApp,
+                {create:true, exclusive: false},
+                function(directory) {
+                    alert("move to file..");
+                    entry.moveTo(directory, newFileName,  successMove, resOnError);
+                    alert("release");
+
+                },
+                resOnError);
+        },
+        resOnError);
+    }
+
+    function successMove(entry) {
+        //I do my insert with "entry.fullPath" as for the path
+        alert("success");
+        //this is file path, customize your path
+        alert(entry);
+    }
+
+    function resOnError(error) {
+       alert("failed");
+    }
+
 
     </script>
   </head>
