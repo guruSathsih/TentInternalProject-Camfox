@@ -132,7 +132,7 @@
 
                         alert("File Downloaded Successfully");
                     },function(error){
-                        alert("File Download Failed"+ error);
+                        alert("File Download Failed"+ error.message);
                     });
                 },fail);
            });
