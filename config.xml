@@ -27,8 +27,8 @@
   <gap:plugin name="org.apache.cordova.device-motion"/>
   <gap:plugin name="org.apache.cordova.device-orientation"/>
   <gap:plugin name="org.apache.cordova.dialogs"/>
-  <gap:plugin name="org.apache.cordova.file"/>
-  <gap:plugin name="org.apache.cordova.file-transfer"/>
+  <gap:plugin name="org.apache.cordova.file"value="true"/>
+  <gap:plugin name="org.apache.cordova.file-transfer" value="true"/>
   <gap:plugin name="org.apache.cordova.geolocation"/>
   <gap:plugin name="org.apache.cordova.globalization"/>
   <gap:plugin name="org.apache.cordova.inappbrowser"/>
@@ -83,12 +83,18 @@
 	</feature>
 	
 	<feature name="http://api.phonegap.com/1.0/file" />
-	<feature name="File">
+	
+	<plugin name="File" value="org.apache.cordova.FileUtils" />
+<plugin name="FileTransfer" value="org.apache.cordova.FileTransfer" />
+
+
+
+	<!-- <feature name="File">
 		   <param name="android-package" value="org.apache.cordova.file.FileUtils" />
 	</feature>
 	<feature name="FileTransfer">
 		  <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
-	</feature>
+	</feature> -->
 	<feature name="Storage">
 		   <param value="org.apache.cordova.Storage" name="android-package"/>
 	</feature>
