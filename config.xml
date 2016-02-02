@@ -84,8 +84,8 @@
 	
 	<feature name="http://api.phonegap.com/1.0/file" />
 	
-	<plugin name="File" value="org.apache.cordova.FileUtils" />
-	<plugin name="FileTransfer" value="org.apache.cordova.FileTransfer" />
+	<!-- <plugin name="File" value="org.apache.cordova.FileUtils" />
+	<plugin name="FileTransfer" value="org.apache.cordova.FileTransfer" /> -->
 
 
 
