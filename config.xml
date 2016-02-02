@@ -84,17 +84,12 @@
 	
 	<feature name="http://api.phonegap.com/1.0/file" />
 	
-	<!-- <plugin name="File" value="org.apache.cordova.FileUtils" />
-	<plugin name="FileTransfer" value="org.apache.cordova.FileTransfer" /> -->
-
-
-
-	<!-- <feature name="File">
+	<feature name="File">
 		   <param name="android-package" value="org.apache.cordova.file.FileUtils" />
 	</feature>
 	<feature name="FileTransfer">
 		  <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
-	</feature> -->
+	</feature> 
 	<feature name="Storage">
 		   <param value="org.apache.cordova.Storage" name="android-package"/>
 	</feature>

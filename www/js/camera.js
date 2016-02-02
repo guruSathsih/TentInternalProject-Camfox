@@ -58,14 +58,14 @@
 		alert('success'); 
 		alert("Response = " + r.response);
 		alert("Sent = " + r.bytesSent);
-		 var largeImage = document.getElementById('largeImage');
+		// var largeImage = document.getElementById('largeImage');
       // Unhide image elements
       //
-      largeImage.style.display = 'block';
+      //largeImage.style.display = 'block';
       // Show the captured photo
       // The inline CSS rules are used to resize the image
       //
-      largeImage.src = getSiteURL()+"/process/uploads/images/"+pictureSource;
+      //largeImage.src = getSiteURL()+"/process/uploads/images/"+pictureSource;
 		
 	}
 	function fail(error){

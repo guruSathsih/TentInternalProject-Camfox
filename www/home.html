@@ -18,7 +18,7 @@
 		
 		<script src="js/actions.js"></script>
 		<script src="js/dialog.js"></script>
-		
+		<script src="js/camera.js"></script>
 		<script>
 			$(document).on("pagebeforeshow","#contacts",function(){ // When entering contacts page			  
 				show_requested_friends();
@@ -276,7 +276,7 @@
 						<a href="">
 							<p class="ui-btn ui-icon-edit ui-btn-icon-left status_button">status</p>
 						</a>
-						<a href="camera.html" data-ajax='false'>
+						<a href="" data-ajax='false' onClick="getPhoto(pictureSource.SAVEDPHOTOALBUM); return false;">
 							<p class="ui-btn ui-icon-camera ui-btn-icon-left camera_button">camera</p>
 						</a>
 						<a onClick="logout_function(); return false;" href="">
