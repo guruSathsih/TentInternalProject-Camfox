@@ -10,7 +10,7 @@
     function onDeviceReady() {
 		 pictureSource=navigator.camera.PictureSourceType;
         destinationType=navigator.camera.DestinationType;
-		alert("device ready"); 
+		//alert("device ready"); 
     }
 
     // Called when a photo is successfully retrieved
@@ -41,23 +41,23 @@
 	  options.mimeType = "image/jpeg";
 	  
 	  pictureSource = imageURI.substr(imageURI.lastIndexOf('/')+1);
-	  alert("Name:"+pictureSource);
-	  alert(imageURI);
+	  //alert("Name:"+pictureSource);
+	  //alert(imageURI);
 	  var params = new Object();
       params.post_type = "image";
 	  
       options.params = params;
       options.chunkedMode = false;// If it is not set the PHP server won't able to read this image'
 	  var ft = new FileTransfer();
-	  alert("after file transfer class");
+	  //alert("after file transfer class");
 	  ft.upload(imageURI,getBaseURL()+"process/api.php?rquest=uploadImage",win,fail,options);
 	  
-	  alert('completed uploading');
+	  //alert('completed uploading');
     }
     function win(r){
-		alert('success'); 
+		//alert('success'); 
 		alert("Response = " + r.response);
-		alert("Sent = " + r.bytesSent);
+		//alert("Sent = " + r.bytesSent);
 		// var largeImage = document.getElementById('largeImage');
       // Unhide image elements
       //
@@ -75,7 +75,9 @@
      
     // A button will call this function
    
-	function getPhoto(source) {alert('getPhoto');
+	function getPhoto(source) 
+	{
+		//alert('getPhoto');
       // Retrieve image file location from specified source
       navigator.camera.getPicture(uploadPhoto, onFail, { quality: 50, 
         destinationType: destinationType.FILE_URI,

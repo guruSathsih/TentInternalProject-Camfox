@@ -51,9 +51,9 @@ body, input, select, textarea, button, .ui-btn {
 	background:#11a525 !important; 
 	color:#FFF !important;
 	cursor:pointer;
-	padding:9px;
+	padding:5px;
 	font-weight: normal !important;
-	font-size: 18px !important;
+	font-size: 15px !important;
 }
 
 /*css for the main post stream*/
