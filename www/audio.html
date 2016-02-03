@@ -1,8 +1,7 @@
 <html>
   <head>
     <title>Capture Audio</title>
-	
-	<script src="js/actions.js"></script>
+	 <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
     <script type="text/javascript" >
 	
     
@@ -16,7 +15,7 @@
 		alert("device ready"); 
     }
 	
-    function captureSuccess(mediaFiles) {
+ /*   function captureSuccess(mediaFiles) {
 		alert("inside success");
         var i, len;
         for (i = 0, len = mediaFiles.length; i < len; i += 1) {
@@ -58,13 +57,13 @@
                 alert('Error uploading file ' + path + ': ' + error.code);
             },
             { fileName: name, post_type: type});   
-    }
+    } */
 
     </script>
     </head>
     <body>
-        <button onclick="captureAudios(); return false;">Capture Audio</button> </br>
+        <button onclick="captureAudios(); return false;">Capture Audio</button> 
     </body>
 	
-    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+   
 </html>
