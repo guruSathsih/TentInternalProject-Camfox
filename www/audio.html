@@ -1,11 +1,9 @@
-<!DOCTYPE html>
 <html>
   <head>
     <title>Capture Audio</title>
-
-    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+	
 	<script src="js/actions.js"></script>
-    <script type="text/javascript" charset="utf-8">
+    <script type="text/javascript" >
 	
     
     // Wait for PhoneGap to connect with the device
@@ -35,7 +33,7 @@
 
     // A button will call this function
     //
-    function captureAudio() {
+    function captureAudios() {
         // Launch device audio recording application, 
         // allowing user to capture up to 2 audio clips
 		alert("inside capture");
@@ -65,6 +63,8 @@
     </script>
     </head>
     <body>
-        <button onclick="captureAudio();">Capture Audio</button> <br>
+        <button onclick="captureAudios(); return false;">Capture Audio</button> </br>
     </body>
+	
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 </html>
