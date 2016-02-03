@@ -98,6 +98,7 @@
         var i, len;
         for (i = 0, len = mediaFiles.length; i < len; i += 1) {
            // uploadFile(mediaFiles[i]);
+		   alert(mediaFiles[i].fullPath);
         }       
     }
 
@@ -114,5 +115,5 @@
         // Launch device audio recording application, 
         // allowing user to capture up to 2 audio clips
 		alert("inside capture");
-        navigator.device.capture.captureAudio(captureSuccess, captureError, {limit: 2});
+        navigator.device.capture.captureAudio(captureSuccess, captureError, {limit: 1});
     }
