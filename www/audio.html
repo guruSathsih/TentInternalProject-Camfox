@@ -11,6 +11,7 @@
     // Called when capture operation is finished
     //
     function captureSuccess(mediaFiles) {
+		alert("inside success");
         var i, len;
         for (i = 0, len = mediaFiles.length; i < len; i += 1) {
             uploadFile(mediaFiles[i]);
@@ -29,11 +30,13 @@
     function captureAudio() {
         // Launch device audio recording application, 
         // allowing user to capture up to 2 audio clips
+		alert("inside capture");
         navigator.device.capture.captureAudio(captureSuccess, captureError, {limit: 2});
     }
 
     // Upload files to server
     function uploadFile(mediaFile) {
+		alert("inside upload");
         var ft = new FileTransfer(),
             path = mediaFile.fullPath,
             name = mediaFile.name;
@@ -42,11 +45,11 @@
         ft.upload(path,
            getBaseURL()+"process/api.php?rquest=uploadAudio",
             function(result) {
-                console.log('Upload success: ' + result.responseCode);
-                console.log(result.bytesSent + ' bytes sent');
+                alert('Upload success: ' + result.responseCode);
+                alert(result.bytesSent + ' bytes sent');
             },
             function(error) {
-                console.log('Error uploading file ' + path + ': ' + error.code);
+                alert('Error uploading file ' + path + ': ' + error.code);
             },
             { fileName: name, post_type: type});   
     }
