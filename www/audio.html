@@ -3,12 +3,21 @@
   <head>
     <title>Capture Audio</title>
 
-    <script type="text/javascript" charset="utf-8" src="cordova-1.5.0.js"></script>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 	<script src="js/actions.js"></script>
     <script type="text/javascript" charset="utf-8">
 	
-    // Called when capture operation is finished
+    
+    // Wait for PhoneGap to connect with the device
     //
+    document.addEventListener("deviceready",onDeviceReady,false);
+
+    // PhoneGap is ready to be used!
+    //
+    function onDeviceReady() {		
+		alert("device ready"); 
+    }
+	
     function captureSuccess(mediaFiles) {
 		alert("inside success");
         var i, len;
