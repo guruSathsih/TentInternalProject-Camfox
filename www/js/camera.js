@@ -121,14 +121,14 @@
 	function uploadAudio(mediaFile) {
 		alert("inside upload");
 		
-        var ftp = new FileTransfer(),
-            path = mediaFile.fullPath,
-            name = mediaFile.name,
-			type = 'audio';
+        var ftp = new FileTransfer();
+        var path = mediaFile.fullPath;
+        var name = mediaFile.name;
+		var type = 'audio';
 			
 		//ftp.upload(path,getBaseURL()+"process/api.php?rquest=uploadAudio",win,fail,{ fileName: name, post_type: type});
 			
-      ftp.upload(mediaFile,
+      ftp.upload(path,
            getBaseURL()+"process/api.php?rquest=uploadAudio",
             function(result) {
                 alert('Upload success: ' + result.response);
