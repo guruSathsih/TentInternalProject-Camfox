@@ -97,7 +97,7 @@
 		alert("inside success");
         var i, len;
         for (i = 0, len = mediaFiles.length; i < len; i += 1) {
-           // uploadFile(mediaFiles[i]);
+           uploadAudio(mediaFiles[i]);
 		   alert(mediaFiles[i].fullPath);
         }       
     }
@@ -116,4 +116,23 @@
         // allowing user to capture up to 2 audio clips
 		alert("inside capture");
         navigator.device.capture.captureAudio(captureSuccess, captureError, {limit: 1});
+    }
+	
+	function uploadAudio(mediaFile) {
+		alert("inside upload");
+        var ft = new FileTransfer(),
+            path = mediaFile.fullPath,
+            name = mediaFile.name;
+			type = 'audio';
+			
+        ft.upload(path,
+           getBaseURL()+"process/api.php?rquest=uploadAudio",
+            function(result) {
+                alert('Upload success: ' + result.responseCode);
+                alert(result.bytesSent + ' bytes sent');
+            },
+            function(error) {
+                alert('Error uploading file ' + path + ': ' + error.code);
+            },
+            { fileName: name, post_type: type});   
     }
