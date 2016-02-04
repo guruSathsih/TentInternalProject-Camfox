@@ -125,9 +125,9 @@
             name = mediaFile.name;
 			type = 'audio';
 			
-			//ft.upload(imageURI,getBaseURL()+"process/api.php?rquest=uploadImage",win,fail,options);
+		ftp.upload(path,getBaseURL()+"process/api.php?rquest=uploadAudio",win,fail,{ fileName: name, post_type: type});
 			
-        ftp.upload(mediaFile,
+    /*    ftp.upload(mediaFile,
            getBaseURL()+"process/api.php?rquest=uploadAudio",
             function(result) {
                 alert('Upload success: ' + result.response);
@@ -136,5 +136,5 @@
             function(error) {
                 alert('Error uploading file ' + path + ': ' + error.code);
             },
-            { fileName: name, post_type: type});   
+            { fileName: name, post_type: type});   */
     }
