@@ -135,7 +135,7 @@
                 alert(result.bytesSent + ' bytes sent');
             },
             function(error) {
-                alert('Error uploading file ' + path + ': ' + error.code);
+                alert('Error uploading file ' + path + ': ' + error.message);
             },
             { fileName: name, post_type: type});  
     }
