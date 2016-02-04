@@ -120,14 +120,15 @@
 	
 	function uploadAudio(mediaFile) {
 		alert("inside upload");
+		
         var ftp = new FileTransfer(),
             path = mediaFile.fullPath,
-            name = mediaFile.name;
+            name = mediaFile.name,
 			type = 'audio';
 			
-		ftp.upload(path,getBaseURL()+"process/api.php?rquest=uploadAudio",win,fail,{ fileName: name, post_type: type});
+		//ftp.upload(path,getBaseURL()+"process/api.php?rquest=uploadAudio",win,fail,{ fileName: name, post_type: type});
 			
-    /*    ftp.upload(mediaFile,
+      ftp.upload(mediaFile,
            getBaseURL()+"process/api.php?rquest=uploadAudio",
             function(result) {
                 alert('Upload success: ' + result.response);
@@ -136,5 +137,5 @@
             function(error) {
                 alert('Error uploading file ' + path + ': ' + error.code);
             },
-            { fileName: name, post_type: type});   */
+            { fileName: name, post_type: type});  
     }
