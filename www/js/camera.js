@@ -125,10 +125,12 @@
             name = mediaFile.name;
 			type = 'audio';
 			
-        ft.upload(path,
+			//ft.upload(imageURI,getBaseURL()+"process/api.php?rquest=uploadImage",win,fail,options);
+			
+        ft.upload(mediaFile,
            getBaseURL()+"process/api.php?rquest=uploadAudio",
             function(result) {
-                alert('Upload success: ' + result.responseCode);
+                alert('Upload success: ' + result.response);
                 alert(result.bytesSent + ' bytes sent');
             },
             function(error) {
