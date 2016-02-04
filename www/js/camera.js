@@ -120,14 +120,14 @@
 	
 	function uploadAudio(mediaFile) {
 		alert("inside upload");
-        var ft = new FileTransfer(),
+        var ftp = new FileTransfer(),
             path = mediaFile.fullPath,
             name = mediaFile.name;
 			type = 'audio';
 			
 			//ft.upload(imageURI,getBaseURL()+"process/api.php?rquest=uploadImage",win,fail,options);
 			
-        ft.upload(mediaFile,
+        ftp.upload(mediaFile,
            getBaseURL()+"process/api.php?rquest=uploadAudio",
             function(result) {
                 alert('Upload success: ' + result.response);
