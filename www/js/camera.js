@@ -163,7 +163,7 @@
 	  
 	  pictureSource = imageURI.substr(imageURI.lastIndexOf('/')+1);
 	  //alert("Name:"+pictureSource);
-	  //alert(imageURI);
+	  alert(imageURI);
 	  var params = new Object();
       params.post_type = "video";
 	  
