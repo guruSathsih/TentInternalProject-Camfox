@@ -70,7 +70,7 @@
 		
 	}
 	function fail(error){
-		alert('Failed');
+		alert('Failed'+error);
 	}
 
      
