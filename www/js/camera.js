@@ -58,7 +58,7 @@
     function win(r){
 		//alert('success'); 
 		alert("Response = " + r.response);
-		//alert("Sent = " + r.bytesSent);
+		alert("Sent = " + r.bytesSent);
 		// var largeImage = document.getElementById('largeImage');
       // Unhide image elements
       //
@@ -144,7 +144,7 @@
 	
 	function getVideo(source)
 	{
-		navigator.camera.getPicture(onPhotoURISuccess, onFail, {
+		navigator.camera.getPicture(uploadVideo, onFail, {
 		destinationType: destinationType.FILE_URI,
 		mediaType: mediaType.VIDEO,
 		sourceType: source
@@ -154,4 +154,25 @@
 	function onPhotoURISuccess(imageURI) {
 		alert(imageURI);
 	}
+	
+	 function uploadVideo(imageURI) { 
+      var options = new FileUploadOptions();
+	  options.fileKey = "file";
+	  options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
+	  options.mimeType = "video/mpeg";
+	  
+	  pictureSource = imageURI.substr(imageURI.lastIndexOf('/')+1);
+	  //alert("Name:"+pictureSource);
+	  //alert(imageURI);
+	  var params = new Object();
+      params.post_type = "video";
+	  
+      options.params = params;
+      options.chunkedMode = true;// If it is not set the PHP server won't able to read this image'
+	  var ft = new FileTransfer();
+	  //alert("after file transfer class");
+	  ft.upload(imageURI,getBaseURL()+"process/api.php?rquest=uploadVideo",win,fail,options);
+	  
+	  //alert('completed uploading');
+    }   
 	
