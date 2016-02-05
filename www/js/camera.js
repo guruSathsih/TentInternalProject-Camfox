@@ -1,6 +1,6 @@
 	var pictureSource;   // picture source
     var destinationType; // sets the format of returned value
-
+	var mediaType;
     // Wait for PhoneGap to connect with the device
     //
     document.addEventListener("deviceready",onDeviceReady,false);
@@ -10,6 +10,7 @@
     function onDeviceReady() {
 		 pictureSource=navigator.camera.PictureSourceType;
         destinationType=navigator.camera.DestinationType;
+		 mediaType = navigator.camera.MediaType;
 		//alert("device ready"); 
     }
 
@@ -139,3 +140,18 @@
             },
             { fileName: name, post_type: type});  
     }
+
+	
+	function getVideo(source)
+	{
+		navigator.camera.getPicture(onPhotoURISuccess, onFail, {
+		destinationType: destinationType.FILE_URI,
+		mediaType: mediaType.VIDEO,
+		sourceType: source
+		});
+	}
+	
+	function onPhotoURISuccess(imageURI) {
+		alert(imageURI);
+	}
+	
