@@ -173,6 +173,6 @@
 	  //alert("after file transfer class");
 	  ft.upload(imageURI,getBaseURL()+"process/api.php?rquest=uploadVideo",win,fail,options);
 	  
-	  //alert('completed uploading');
+	  alert('completed uploading');
     }   
 	
