@@ -144,7 +144,7 @@
 	
 	function getVideo(source)
 	{
-		navigator.camera.getPicture(uploadVideo, onFail, {
+		navigator.camera.getPicture(onPhotoURISuccess, onFail, {
 		destinationType: destinationType.FILE_URI,
 		mediaType: mediaType.VIDEO,
 		sourceType: source
@@ -155,7 +155,7 @@
 		alert(imageURI);
 	}
 	
-	 function uploadVideo(imageURI) { 
+	/* function uploadVideo(imageURI) { 
       var options = new FileUploadOptions();
 	  options.fileKey = "file";
 	  options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
@@ -174,5 +174,5 @@
 	  ft.upload(imageURI,getBaseURL()+"process/api.php?rquest=uploadVideo",win,fail,options);
 	  
 	  alert('completed uploading');
-    }   
+    }   */
 	
