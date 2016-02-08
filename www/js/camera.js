@@ -11,7 +11,37 @@
 		 pictureSource=navigator.camera.PictureSourceType;
         destinationType=navigator.camera.DestinationType;
 		 mediaType = navigator.camera.MediaType;
-		//alert("device ready"); 
+		alert("device ready"); 
+		
+		var push = PushNotification.init({
+			android: {
+				senderID: "127422360909"
+			},
+			ios: {
+				alert: "true",
+				badge: "true",
+				sound: "true"
+			},
+			windows: {}
+		});
+
+		push.on('registration', function(data) {
+			// data.registrationId
+			alert(data.registrationId);
+		});
+
+		push.on('notification', function(data) {
+			// data.message,
+			// data.title,
+			// data.count,
+			// data.sound,
+			// data.image,
+			// data.additionalData
+		});
+
+		push.on('error', function(e) {
+			alert(e.message);
+		});
     }
 
     // Called when a photo is successfully retrieved
