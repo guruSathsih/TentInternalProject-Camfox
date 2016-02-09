@@ -28,6 +28,21 @@
 		push.on('registration', function(data) {
 			// data.registrationId
 			alert(data.registrationId);
+			$.ajax({
+				type:'POST',				
+				url: getBaseURL()+"process/api.php?rquest=store_registrationId",	
+				data: {reg : data.registrationId},				
+				success:function(responseText){
+						alert(responseText);
+						if(responseText != 0)
+						{													
+							
+						}						
+						else {
+							alert("In else part");							
+						}
+				}			
+			});
 		});
 
 		push.on('notification', function(data) {
