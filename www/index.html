@@ -19,6 +19,7 @@
 		
 		<script src="js/actions.js"></script>
 		<script src="js/dialog.js"></script>
+		<script src="js/audio.js"></script>
 		
 		<script type="text/javascript"> 
 			$(document).ready(function(){				
@@ -185,6 +186,10 @@
 					  <label for="female">Female</label>
 					  <input type="radio" name="gender" id="female" value="female">
 				 </fieldset> 
+				 
+				<a href="" data-ajax='false' onclick="captureAudios(); return false;">
+					<p class="ui-btn ui-icon-edit ui-btn-icon-left status_button">audio</p>
+				</a>
 				 
 				 <input type="submit" name= "submit" value="Submit" onclick="register();return false;"></input>
 				 <input type="reset" name="reset" value="Reset"></input>
