@@ -39,6 +39,11 @@
 				$month = $_REQUEST['month'];
 				$day = $_REQUEST['day'];
 				$birth_date = $year.'-'.$month.'-'.$day;
+				$user_voice="";
+				if(isset($_SESSION['audio_file']) && !empty($_SESSION['audio_file']))
+				{
+					$user_voice = $_SESSION['audio_file'];
+				}
 				
 				$result = signup($username, $firstname, $surname, $email, $mobileNo, $password, $birth_date, $gender);
 				if($result)
@@ -941,6 +946,27 @@
 								$post_id = newPost($post_content, $user_id, $post_type);
 								$this->http_response($post_id,200); 				 
 					}
+		}		
+		
+		function uploadAudioforTest()
+		{
+			if(isset($_SESSION['user_id']))
+				$user_id = $_SESSION['user_id'];
+			else
+				$user_id = 0;
+			
+			$post_type = '';
+			$timestamp = date("Y-m-d H:i:s");
+			$fileName = $user_id."_".$timestamp.".mp3";  
+			
+			$post_content = $fileName;
+			$post_type = $_POST['post_type']; 
+			$now_time = $timestamp;
+			echo "inside upload audio";
+			
+			move_uploaded_file($_FILES["file"]["tmp_name"], "uploads/audios/".$fileName);	
+			
+			$_SESSION['audio_file'] = $post_content;
 		}		
 		
 		function uploadVideo()

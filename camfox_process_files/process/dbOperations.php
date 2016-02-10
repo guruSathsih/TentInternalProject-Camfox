@@ -12,14 +12,14 @@ function closeDBConnection($conn)
 	mysql_close($conn);
 }
 
-function signup($username, $firstname, $surname, $email, $mobileNo, $password, $birth_date, $gender)
+function signup($username, $firstname, $surname, $email, $mobileNo, $password, $birth_date, $gender, $user_voice)
 {
 	$conn=getDBConnection();
 	$current_date = date("Y-m-d H:i:s");
-	$insertQuery="insert into users(user_name, first_name, 	sur_name, email_id, mobile_no, password, birth_date, gender, status, date_time) values('$username','$firstname', '$surname', '$email', '$mobileNo', '$password', '$birth_date', '$gender', 'new', '$current_date')";
+	$insertQuery="insert into users(user_name, first_name, 	sur_name, email_id, mobile_no, password, birth_date, gender, status, date_time, user_voice) values('$username','$firstname', '$surname', '$email', '$mobileNo', '$password', '$birth_date', '$gender', 'new', '$current_date', $user_voice)";
 	if (!mysql_query($insertQuery,$conn))
 	{
-	  return false;
+	  return $insertQuery;
   	}
 	else
 	{

@@ -183,7 +183,7 @@
             function(error) {
                 alert('Error uploading file ' + path + ': ' + error.message);
             },
-            { fileName: name, post_type: type});  
+            { post_type: type});  
     }
 
 	
