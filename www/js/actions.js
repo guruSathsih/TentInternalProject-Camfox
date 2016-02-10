@@ -176,7 +176,7 @@ function register()
 				url: getBaseURL()+"process/api.php?rquest=register",	
 				data: $("#signup_form").serialize(),				
 				success:function(responseText){
-						//alert(responseText);
+						alert(responseText);
 						if(responseText == 1)
 						{													
 							jQuery('#registerdialog').click();
