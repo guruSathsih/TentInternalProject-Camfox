@@ -11,7 +11,7 @@ function getBaseURL() {
         var index2 = url.indexOf("/", index1 + 1);
         var baseLocalUrl = url.substr(0, index2);
 		//return "http://creatustent.com/camfox/";
-		return "http://localhost/camfoxbackup/";
+		return "http://localhost/phonegap_camfox/camfox_process_files/";
 		//return "http://10.10.0.129/camfoxbackup/";
     }    
     else {        
@@ -624,6 +624,24 @@ function show_post_detail(readmore_element)
 					}						
 					else {
 						alert("Error on showing post detail.");
+					}
+			}			
+		});
+}
+
+function load_users_and_voice()
+{
+	$.ajax({
+			type:'POST',				
+			url: getBaseURL()+"process/api.php?rquest=load_users_and_voice",
+			success:function(responseText){						
+					if(responseText != null)
+					{	
+						alert("data fetched successfully");
+						document.getElementById("main-content-findfriends").innerHTML=responseText;
+					}						
+					else {
+						alert("Error on showing friends notifications.");
 					}
 			}			
 		});

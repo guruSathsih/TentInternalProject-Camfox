@@ -23,6 +23,11 @@
 		<script src="js/camera.js"></script>
 	<!--	<script src="js/audio.js"></script> -->
 		<script>
+			
+			$(document).on("pagebeforeshow","#find_friends",function(){ // When entering contacts page			  
+				load_users_and_voice();
+			}); 			
+		
 			$(document).on("pagebeforeshow","#contacts",function(){ // When entering contacts page			  
 				show_requested_friends();
 				remove_friend_notification();
@@ -267,7 +272,7 @@
 				width: auto; 
 				max-height: 240px; 
 				max-width: 350px;
-			}
+			}			
 		</style>
 	</head>
 	<body>
@@ -298,7 +303,7 @@
 							<a href="#index" data-transition="slide" data-direction="reverse" ><img src="images/restore-window-xxl.png" style="left:10%; border-bottom: 4px solid; padding: 0 10px 5px;" /> </a>
 							<a href="#contacts" data-transition="slide" ><img src="images/friends.png" style="left:33%;" /> <span class = "friReq_notify" style="top: 107px; left: 40%; position: fixed;"> </span> </a>
 							<a href="#news" data-transition="slide"><img src="images/events.png" style="left:57%" /> <span class = "events_notify" style="left:63%; position: fixed; top: 107px;"> </span> </a>
-							<a href="" ><img src="images/settings-icon.png" style="left:81%"/> </a>
+							<a href="#find_friends" data-transition="slide"><img src="images/settings-icon.png" style="left:81%"/> </a>
 						</div>
 					</div>	
 				
@@ -443,6 +448,45 @@
 					
 				</div>
 							
+			</div>
+		 </div>
+		</div>
+		
+		<div data-role="page" id="find_friends">		  
+		 
+		 <div data-role="header" class="ui-content">
+			<input type="search" name="search-mini" id="search-mini" value="" data-mini="true">
+			<a href="#friends" data-transition="slide"  class="ui-btn-right ui-btn ui-corner-all ui-icon-user ui-btn-icon-notext friends_button"></a>
+		 </div>
+
+		 <div data-role="main" class="ui-content">
+			<div class="app_icons" style="position: fixed; top: 48px; left: 0; z-index: 1;">
+				<a href="#index" data-transition="slide" data-direction="reverse" ><img src="images/restore-window-xxl.png" style="left:10%; top: 55px;" /> </a>
+				<a href="#contacts" data-transition="slide" ><img src="images/friends.png" style="left:33%; top: 55px; " />  </a>
+				<a href="#news" data-transition="slide"><img src="images/events.png" style="left:57%; top: 55px;  border-bottom: 4px solid; padding: 0 10px 5px;" /> </a>
+				<a href="" ><img src="images/settings-icon.png" style="left:81%; top: 55px;"/> </a>
+			</div>
+			<div id="main-content-findfriends" style="margin-top:30%">				
+				 <fieldset data-role="controlgroup">
+					<legend>Friends:</legend>
+					<input name="checkbox-v-2a" id="checkbox-v-2a" type="checkbox">
+					<label for="checkbox-v-2a">One</label>
+					<input name="checkbox-v-2b" id="checkbox-v-2b" type="checkbox">
+					<label for="checkbox-v-2b">Two</label>
+					<input name="checkbox-v-2c" id="checkbox-v-2c" type="checkbox">
+					<label for="checkbox-v-2c">Three</label>
+				</fieldset>	
+				
+				<fieldset data-role="controlgroup">
+					<legend>voice:</legend>
+					<input name="checkbox-v-a" id="checkbox-v-a" type="checkbox">
+					<label for="checkbox-v-a">One</label>
+					<input name="checkbox-v-b" id="checkbox-v-b" type="checkbox">
+					<label for="checkbox-v-b">Two</label>
+					<input name="checkbox-v-c" id="checkbox-v-c" type="checkbox">
+					<label for="checkbox-v-c">Three</label>
+				</fieldset>	
+				
 			</div>
 		 </div>
 		</div>

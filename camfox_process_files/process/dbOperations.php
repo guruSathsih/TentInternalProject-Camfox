@@ -16,7 +16,7 @@ function signup($username, $firstname, $surname, $email, $mobileNo, $password, $
 {
 	$conn=getDBConnection();
 	$current_date = date("Y-m-d H:i:s");
-	$insertQuery="insert into users(user_name, first_name, 	sur_name, email_id, mobile_no, password, birth_date, gender, status, date_time, user_voice) values('$username','$firstname', '$surname', '$email', '$mobileNo', '$password', '$birth_date', '$gender', 'new', '$current_date', $user_voice)";
+	$insertQuery="insert into users(user_name, first_name, 	sur_name, email_id, mobile_no, password, birth_date, gender, status, date_time, user_voice) values('$username','$firstname', '$surname', '$email', '$mobileNo', '$password', '$birth_date', '$gender', 'new', '$current_date', '$user_voice')";
 	if (!mysql_query($insertQuery,$conn))
 	{
 	  return $insertQuery;
@@ -555,6 +555,24 @@ function storePushNotificationId($reg_id, $user_id)
 	  die('Could not update data: ' . mysql_error());	 
 	}
 	closeDBConnection($conn);
+}
+
+function loadAllUsersAndVoice()
+{
+	$conn = getDBConnection();
+	$sql = "SELECT * FROM users WHERE user_voice IS NOT NULL ";
+	$result = mysql_query($sql, $conn) or die(mysql_error());
+	$users = null; $i=0;
+	while($row = mysql_fetch_array($result))
+	{
+		$users[$i][0]  = $row['id'];
+        $users[$i][1]  = $row['first_name'];
+        $users[$i][2]  = $row['picture'];
+		$users[$i][3]  = $row['user_voice'];
+		$i++;	
+	}
+	closeDBConnection($conn);
+	return $users;
 }
 
 function logoutUser()

@@ -45,7 +45,7 @@
 					$user_voice = $_SESSION['audio_file'];
 				}
 				
-				$result = signup($username, $firstname, $surname, $email, $mobileNo, $password, $birth_date, $gender);
+				$result = signup($username, $firstname, $surname, $email, $mobileNo, $password, $birth_date, $gender, $user_voice);
 				if($result)
 				{						
 					$this->http_response(1,200);
@@ -1065,6 +1065,38 @@
 			$result = curl_exec($ch );
 			curl_close( $ch );
 			echo $result;
+		}
+		
+		function load_users_and_voice()
+		{			
+			$users_list = loadAllUsersAndVoice();
+			$result = "";
+			if($users_list != null )
+			{
+				$result.= '<fieldset data-role="controlgroup">';
+				$result.= '<legend>Friends:</legend>';
+				foreach($users_list as $value)
+				{
+					$result.= '<input name="'.$value[0].'_user_name" id="'.$value[0].'_user_name" type="checkbox">';	
+					$result.= '<label for="'.$value[0].'_user_name">'.$value[1].'</label>';
+				}
+				$result.= '</fieldset>';
+				
+				$result.= '<fieldset data-role="controlgroup">';
+				$result.= '<legend>Voice:</legend>';
+				foreach($users_list as $value)
+				{
+					$result.= '<input name="'.$value[0].'_uservoice_name" id="'.$value[0].'_uservoice_name" type="checkbox">';	
+					$result.= '<label for="'.$value[0].'_uservoice_name">';
+						$result.='<audio controls>';
+							$result.= '<source src="http://creatustent.com/camfox/process/uploads/audios/'.$value[3].'" type="audio/mpeg">';
+						$result.= '</audio> ';
+					$result.= '</label>';
+				}
+				$result.= '</fieldset>';
+			}			
+			
+			$this->http_response($result,200);
 		}
 		
 		public function logout()
