@@ -58,6 +58,19 @@
 			},30000);			
 		</script>
 		
+		<script>
+			$('#main-content-findfriends :checkbox').click(function() {
+				var $this = $(this);
+				// $this will contain a reference to the checkbox   
+				if ($this.is(':checked')) {
+					// the checkbox was checked 
+					alert($this);
+				} else {
+					// the checkbox was unchecked
+				}
+			});
+		</script>
+		
 		<style>
 			
 			.ui-page .ui-header {

@@ -11,7 +11,7 @@ function getBaseURL() {
         var index2 = url.indexOf("/", index1 + 1);
         var baseLocalUrl = url.substr(0, index2);
 		//return "http://creatustent.com/camfox/";
-		return "http://localhost/phonegap_camfox/camfox_process_files/";
+		return "http://localhost/phonegap_camfox/";
 		//return "http://10.10.0.129/camfoxbackup/";
     }    
     else {        
@@ -22,7 +22,7 @@ function getBaseURL() {
 function getSiteURL() {
     var url = location.href;  // entire url including querystring - also: window.location.href; 
 	if(url.indexOf("http://localhost") != -1){
-		return "http://localhost/camfoxbackup/";
+		return "http://localhost/phonegap_camfox/";
 	}else{
 		return "http://creatustent.com/camfox/";
 	}
