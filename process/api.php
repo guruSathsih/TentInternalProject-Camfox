@@ -1073,11 +1073,12 @@
 			$result = "";
 			if($users_list != null )
 			{
+				$result.= '<button onClick = "checkMatch();">Match</button>';
 				$result.= '<fieldset data-role="controlgroup">';
 				$result.= '<legend>Friends:</legend>';
 				foreach($users_list as $value)
 				{
-					$result.= '<input name="'.$value[0].'_user_name" id="'.$value[0].'_user_name" type="checkbox">';	
+					$result.= '<input name="'.$value[0].'_user_name" id="'.$value[0].'_user_name" type="checkbox" onclick="getUser('.$value[0].');">';	
 					$result.= '<label for="'.$value[0].'_user_name">'.$value[1].'</label>';
 				}
 				$result.= '</fieldset>';
@@ -1089,7 +1090,7 @@
 				
 				foreach($shuffled_list as $value)
 				{
-					$result.= '<input name="'.$value[0].'_uservoice_name" id="'.$value[0].'_uservoice_name" type="checkbox">';	
+					$result.= '<input name="'.$value[0].'_uservoice_name" id="'.$value[0].'_uservoice_name" type="checkbox" onclick="getVoice('.$value[0].');">';	
 					$result.= '<label for="'.$value[0].'_uservoice_name">';
 						$result.='<audio controls>';
 							$result.= '<source src="http://creatustent.com/camfox/process/uploads/audios/'.$value[3].'" type="audio/mpeg">';

@@ -19,7 +19,7 @@
 		<script src="js/actions.js"></script>
 		<script src="js/dialog.js"></script>
 		
-		<script src="push.js"></script>
+		<!--<script src="push.js"></script>-->
 		<script src="js/camera.js"></script>
 	<!--	<script src="js/audio.js"></script> -->
 		<script>
@@ -55,22 +55,56 @@
 				success:function(responseText){						
 					}			
 				});
-			},30000);			
-		</script>
-		
-		<script>
-			$('#main-content-findfriends :checkbox').click(function() {
-				var $this = $(this);
-				// $this will contain a reference to the checkbox   
-				if ($this.is(':checked')) {
-					// the checkbox was checked 
-					alert($this);
-				} else {
-					// the checkbox was unchecked
+			},30000);	
+			
+			var user = 0;
+			var voice = 0;
+			function getUser(id)
+			{
+				var element_id = id+'_user_name';
+				if(document.getElementById(element_id).checked)
+				{
+				user = id;
 				}
-			});
+				else
+					user=0;
+			}
+			
+			function getVoice(id)
+			{
+				var element_id = id+'_uservoice_name';
+				if(document.getElementById(element_id).checked)
+				{
+				voice = id;
+				}
+				else
+					voice=0;
+			}
+			
+			function checkMatch()
+			{
+				if(user == 0)
+				{
+					alert("Select user");
+				}
+				else if(voice == 0)
+				{
+					alert("select voice");
+				}
+				else
+				{
+					if(user == voice)
+					{
+						alert("Matching");						
+					}
+					else{
+						alert("Not Matching");
+					}
+				}
+			}
+			
 		</script>
-		
+				
 		<style>
 			
 			.ui-page .ui-header {
@@ -479,7 +513,8 @@
 				<a href="#news" data-transition="slide"><img src="images/events.png" style="left:57%; top: 55px;  border-bottom: 4px solid; padding: 0 10px 5px;" /> </a>
 				<a href="" ><img src="images/settings-icon.png" style="left:81%; top: 55px;"/> </a>
 			</div>
-			<div id="main-content-findfriends" style="margin-top:30%">				
+			<div id="main-content-findfriends" style="margin-top:30%">	
+				
 				 <fieldset data-role="controlgroup">
 					<legend>Friends:</legend>
 					<input name="checkbox-v-2a" id="checkbox-v-2a" type="checkbox">

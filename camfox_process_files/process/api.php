@@ -1089,7 +1089,7 @@
 				
 				foreach($shuffled_list as $value)
 				{
-					$result.= '<input name="'.$value[0].'_uservoice_name" id="'.$value[0].'_uservoice_name" type="checkbox">';	
+					$result.= '<input name="'.$value[0].'_uservoiceee_name" id="'.$value[0].'_uservoice_name" type="checkbox" onclick="matchProfile('.$value[0].');">';	
 					$result.= '<label for="'.$value[0].'_uservoice_name">';
 						$result.='<audio controls>';
 							$result.= '<source src="http://creatustent.com/camfox/process/uploads/audios/'.$value[3].'" type="audio/mpeg">';
